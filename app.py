@@ -149,7 +149,6 @@ def display_playlist(playlist):
             st.markdown(f"""
             <div class="playlist-item">
                 <div class="snippet-title">{i+1}. {snippet['title']}</div>
-                <div class="snippet-duration">Durée: {int(snippet['audio_duration'] // 60)}:{int(snippet['audio_duration'] % 60):02d}</div>
             </div>
             """, unsafe_allow_html=True)
             
@@ -173,6 +172,10 @@ def main():
     st.title("🎧 Spotify for Learning")
     st.markdown(APP_DESCRIPTION)
     
+    # Initialiser l'entrée utilisateur depuis session_state si disponible
+    if 'user_input' not in st.session_state:
+        st.session_state.user_input = ""
+    
     tab1, tab2, tab3 = st.tabs(["Créer une Playlist", "Ma Bibliothèque", "Découvrir"])
     
     with tab1:
@@ -180,10 +183,11 @@ def main():
         
         # Entrée utilisateur
         user_input = st.text_area(
-            "Entrez les sujets que vous souhaitez apprendre (un par ligne):",
-            height=150,
-            placeholder="Exemple:\n- L'histoire de la Révolution française\n- Comment fonctionne la photosynthèse\n- Les bases de la cryptographie\n..."
-        )
+        "Entrez les sujets que vous souhaitez apprendre (un par ligne):",
+        value=st.session_state.user_input,  # Utiliser la valeur de session_state
+        height=150,
+        placeholder="Exemple:\n- L'histoire de la Révolution française\n- Comment fonctionne la photosynthèse\n- Les bases de la cryptographie\n..."
+    )
         
         col1, col2 = st.columns(2)
         
@@ -234,8 +238,10 @@ def main():
                 if st.button(f"Ajouter à ma liste", key=f"add_rec_{i}"):
                     current_input = user_input.strip()
                     new_input = current_input + f"\n- {rec}" if current_input else f"- {rec}"
-                    st.experimental_set_query_params(user_input=new_input)
+                    # Utiliser session_state au lieu de query_params pour une solution plus robuste
+                    st.session_state.user_input = new_input
                     st.rerun()
+
     
     with tab2:
         st.header("Ma Bibliothèque d'Apprentissage")
