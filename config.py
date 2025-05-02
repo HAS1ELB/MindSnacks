@@ -7,11 +7,18 @@ load_dotenv()
 # Clés API
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+
 # Configuration Llama4
 LLAMA4_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
 
 # Configuration TTS
 TTS_LANGUAGE = "fr"  # Langue française par défaut
+
+# Clés API PlayHT
+PLAYHT_API_KEY = os.getenv("PLAYHT_API_KEY")
+PLAYHT_USER_ID = os.getenv("PLAYHT_USER_ID")
+
 
 # Configuration de l'application
 APP_TITLE = "Spotify for Learning"
