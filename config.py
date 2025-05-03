@@ -18,7 +18,8 @@ AVAILABLE_LANGUAGES = {
     'de': 'Deutsch',
     'it': 'Italiano',
     'ja': '日本語',
-    'zh': '中文'
+    'zh': '中文',
+    'ar': 'العربية'
 }
 
 # Configuration TTS par défaut

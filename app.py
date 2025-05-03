@@ -51,6 +51,11 @@ st.markdown("""
         right: 10px;
         z-index: 1000;
     }
+    /* Support RTL pour l'arabe */
+    [dir="rtl"] .main, [dir="rtl"] .snippet-title, [dir="rtl"] .playlist-item {
+        direction: rtl;
+        text-align: right;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -165,6 +170,10 @@ def language_selector():
         st.rerun()
 
 def main():
+    # Appliquer la direction RTL pour l'arabe
+    if st.session_state.language == 'ar':
+        st.markdown('<div dir="rtl">', unsafe_allow_html=True)
+
     # Sélecteur de langue
     language_selector()
     
@@ -278,6 +287,12 @@ def main():
                                 
                                 st.success(f"'{topic}' {get_translation('added_to_playlist', st.session_state.language)}")
                                 st.rerun()
+    
+    # Fermer la div RTL si nécessaire
+    if st.session_state.language == 'ar':
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
 
 if __name__ == "__main__":
     main()

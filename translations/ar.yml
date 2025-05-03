@@ -1,0 +1,34 @@
+# translations/ar.yml
+add: إضافة
+add_to_list: إضافة إلى قائمتي
+added_to_playlist: تمت الإضافة إلى قائمتك!
+app_description: مولد مقتطفات تعليمية مخصصة لمدة 5 دقائق
+app_title: سبوتيفاي للتعلم
+converting_to_audio: التحويل إلى صوت لـ
+create_custom_playlist: إنشاء قائمة تشغيل مخصصة
+create_playlist_tab: إنشاء قائمة تشغيل
+discover_new_topics: اكتشاف مواضيع جديدة
+discover_tab: اكتشاف
+download: تحميل
+duration_per_topic: 'مدة كل موضوع (دقائق):'
+enter_at_least_one_topic: يرجى إدخال موضوع واحد على الأقل.
+enter_topics: 'أدخل المواضيع التي ترغب في التعرف عليها (واحد في كل سطر):'
+estimated_total_duration: المدة الإجمالية المقدرة
+generate_playlist: إنشاء قائمتي
+generating_custom_playlist: جارٍ إنشاء قائمة التشغيل المخصصة...
+generating_snippet: جارٍ إنشاء المقتطف لـ
+language: اللغة
+minutes: دقائق
+my_learning_library: مكتبتي التعليمية
+my_library_tab: مكتبتي
+no_playlist_yet: لم تقم بإنشاء قائمة تشغيل بعد. انتقل إلى علامة التبويب 'إنشاء قائمة تشغيل' للبدء.
+playlist_generated_success: تم إنشاء قائمة التشغيل بنجاح!
+select_language: اختر لغة
+topics_example: 'مثال:
+  - تاريخ الثورة الفرنسية
+  - كيفية عمل التمثيل الضوئي
+  - أساسيات التشفير
+  ...'
+view_text_content: عرض المحتوى النصي
+you_might_also_like: 'قد يعجبك أيضًا:'
+your_learning_playlist: قائمة التشغيل التعليمية الخاصة بك
