@@ -90,10 +90,17 @@ def generate_recommendation(previous_topics, count=1, language='fr'):
             line = line.strip()
             if line.startswith('- ') or line.startswith('* '):
                 recommendations.append(line[2:].strip())
-            elif line.startswith('#'):
-                continue
-            elif line and not line.startswith('```'):
-                recommendations.append(line)
+            # Suppression de la condition qui ajoute d'autres types de texte
+        
+        # Si nous n'avons pas assez de recommandations, utilisons une approche alternative
+        if len(recommendations) < count:
+            import re
+            # Essayer de trouver des points dans le texte qui pourraient être des sujets
+            additional_lines = re.findall(r'\d+\.\s*(.*?)(?=\d+\.|$)', content, re.DOTALL)
+            for line in additional_lines:
+                line = line.strip()
+                if line and len(recommendations) < count:
+                    recommendations.append(line)
         
         return recommendations[:count]
     
