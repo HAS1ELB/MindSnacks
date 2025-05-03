@@ -264,6 +264,10 @@ def main():
             recent_topics = st.session_state.session.get_recent_topics()
             recommendations = generate_recommendation(recent_topics, 3, st.session_state.language)
             
+            # Initialize a set to track added recommendations
+            if 'added_recommendations' not in st.session_state:
+                st.session_state.added_recommendations = set()
+            
             for i, rec in enumerate(recommendations):
                 st.markdown(f"""
                 <div style="background-color: #282828; border-radius: 8px; padding: 10px; margin-bottom: 10px;">
@@ -271,20 +275,28 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
                 
-                if 'added_recommendations' not in st.session_state:
-                    st.session_state.added_recommendations = set()
-
                 if st.button(f"{get_translation('add_to_list', st.session_state.language)}", key=f"add_rec_{i}"):
                     if rec not in st.session_state.added_recommendations:
+                        # Add to user_input
                         current_input = user_input.strip()
                         new_input = current_input + f"\n- {rec}" if current_input else f"- {rec}"
                         st.session_state.user_input = new_input
-                        st.session_state.added_recommendations.add(rec)
-                        st.success(f"'{rec}' {get_translation('added_to_playlist', st.session_state.language)}")
+                        
+                        # Generate snippet and add to playlist immediately
+                        with st.spinner(f"{get_translation('generating_snippet', st.session_state.language)} {rec}..."):
+                            new_snippet = create_playlist([rec], duration_per_topic)
+                            if new_snippet:  # Check if snippet generation was successful
+                                if 'current_playlist' in st.session_state:
+                                    st.session_state.current_playlist.extend(new_snippet)
+                                else:
+                                    st.session_state.current_playlist = new_snippet
+                                st.session_state.added_recommendations.add(rec)
+                                st.success(f"'{rec}' {get_translation('added_to_playlist', st.session_state.language)}")
+                            else:
+                                st.error(f"Échec de la génération du snippet pour '{rec}'.")
                     else:
                         st.warning(f"'{rec}' {get_translation('already_added', st.session_state.language)}")
-
-    
+        
     with tab2:
         st.header(get_translation('my_learning_library', st.session_state.language))
         
