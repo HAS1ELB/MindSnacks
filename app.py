@@ -146,11 +146,12 @@ def display_playlist(playlist):
         
         with col2:
             st.download_button(
-                label=get_translation('download', st.session_state.language),
-                data=open(snippet['audio_path'], 'rb'),
-                file_name=f"{snippet['title']}.mp3",
-                mime="audio/mp3"
-            )
+            label=get_translation('download', st.session_state.language),
+            data=open(snippet['audio_path'], 'rb'),
+            file_name=f"{snippet['title']}.mp3",
+            mime="audio/mp3",
+            key=f"download_{snippet['id']}"  # Add unique key using snippet ID
+        )
 
 def language_selector():
     """
