@@ -96,18 +96,21 @@ def clean_text_for_tts(text, language='fr'):
     
     return text
 
-def generate_audio(text, title, language='fr'):
+import streamlit as st
+
+@st.cache_data(show_spinner=False)
+def generate_audio(_text, _title, _language):
     """
     Génère un fichier audio à partir d'un texte donné en utilisant edge-tts avec un fallback à gTTS pour l'arabe.
     """
     import logging
     logger = logging.getLogger(__name__)
-    logger.info(f"Generating audio for title: {title}, language: {language}")
+    logger.info(f"Generating audio for title: {_title}, language: {_language}")
     
     try:
         # Nettoyer le titre et le texte
-        cleaned_title = clean_text_for_tts(title, language)
-        cleaned_text = clean_text_for_tts(text, language)
+        cleaned_title = clean_text_for_tts(_title, _language)
+        cleaned_text = clean_text_for_tts(_text, _language)
         
         # Vérifier si le texte nettoyé est valide
         if not cleaned_text or not cleaned_title:
@@ -128,17 +131,17 @@ def generate_audio(text, title, language='fr'):
         asyncio.set_event_loop(loop)
         
         # Essayer chaque voix disponible pour la langue avec edge-tts
-        voices = VOICE_MAPPING.get(language, ["fr-FR-HenriNeural"])
+        voices = VOICE_MAPPING.get(_language, ["fr-FR-HenriNeural"])
         for i, voice in enumerate(voices):
             logger.info(f"Tentative avec la voix {voice} ({i+1}/{len(voices)})...")
-            success = loop.run_until_complete(_generate_edge_tts_audio(full_text, filepath, language, voice_index=i))
+            success = loop.run_until_complete(_generate_edge_tts_audio(full_text, filepath, _language, voice_index=i))
             if success:
                 loop.close()
                 logger.info(f"Audio generation successful: {filepath}")
                 return filepath
         
         # Si edge-tts échoue pour toutes les voix et que la langue est arabe, utiliser gTTS comme fallback
-        if language == 'ar':
+        if _language == 'ar':
             logger.info("Échec avec edge-tts, tentative avec gTTS pour l'arabe...")
             tts = gTTS(text=full_text, lang='ar')
             tts.save(filepath)

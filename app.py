@@ -80,6 +80,7 @@ def create_playlist(topics, duration_per_topic=5):
     logger.info(f"Starting playlist creation for topics: {topics}, duration_per_topic: {duration_per_topic}")
     
     playlist = []
+    seen_snippet_ids = set()  # Track unique snippet IDs
     progress_bar = st.progress(0)
     status_text = st.empty()
     
@@ -90,6 +91,10 @@ def create_playlist(topics, duration_per_topic=5):
         logger.info(f"Generating snippet {i+1}/{len(topics)} for topic: {topic}")
         
         snippet = generate_learning_snippet(topic, duration_per_topic, st.session_state.language)
+        if snippet['id'] in seen_snippet_ids:
+            logger.warning(f"Duplicate snippet ID {snippet['id']} for topic {topic}, skipping")
+            continue
+        seen_snippet_ids.add(snippet['id'])
         logger.info(f"Snippet generated: ID={snippet['id']}, Title={snippet['title']}")
         
         status_text.text(f"{get_translation('converting_to_audio', st.session_state.language)}: {snippet['title']}")
@@ -106,6 +111,8 @@ def create_playlist(topics, duration_per_topic=5):
             playlist.append(snippet)
             st.session_state.session.add_snippet(snippet)
             logger.info(f"Snippet added to playlist: ID={snippet['id']}")
+        else:
+            logger.warning(f"No audio generated for snippet ID={snippet['id']}")
     
     progress_bar.progress(1.0)
     status_text.text(get_translation('playlist_generated_success', st.session_state.language))
@@ -129,7 +136,8 @@ def parse_user_input(input_text):
             if line[0].isdigit() and line[1:3] in ['. ', ') ']:
                 line = line[3:].strip()
                 
-            topics.append(line)
+            if line and line not in topics:  # Avoid duplicates
+                topics.append(line)
     
     return topics
 
@@ -218,7 +226,8 @@ def main():
                 min_value=3,
                 max_value=10,
                 value=5,
-                step=1
+                step=1,
+                key="duration_per_topic_slider"
             )
         
         with col2:
@@ -228,14 +237,23 @@ def main():
                 estimated_time = len(topics) * duration_per_topic
                 total_duration.info(f"{get_translation('estimated_total_duration', st.session_state.language)}: {estimated_time} {get_translation('minutes', st.session_state.language)}")
         
-        if st.button(get_translation('generate_playlist', st.session_state.language)):
+        if 'playlist_generated' not in st.session_state:
+            st.session_state.playlist_generated = False
+        
+        if st.button(get_translation('generate_playlist', st.session_state.language), key="generate_playlist_button"):
             if user_input:
                 topics = parse_user_input(user_input)
-                if topics:
+                if topics and not st.session_state.playlist_generated:
                     with st.spinner(get_translation('generating_custom_playlist', st.session_state.language)):
                         playlist = create_playlist(topics, duration_per_topic)
                         st.session_state.current_playlist = playlist
+                        st.session_state.playlist_generated = True
+                        st.session_state.user_input = user_input  # Preserve input
+                        st.success(get_translation('playlist_generated_success', st.session_state.language))
+                        time.sleep(1)  # Prevent rapid rerun
                         st.rerun()
+                elif st.session_state.playlist_generated:
+                    st.warning(get_translation('playlist_already_generated', st.session_state.language))
                 else:
                     st.error(get_translation('enter_at_least_one_topic', st.session_state.language))
             else:
@@ -276,7 +294,7 @@ def main():
         categories = get_topic_categories(st.session_state.language)
         
         for category, topics in categories.items():
-            with st.expander(category):
+            with st.expander(category):  # Remove key=f"expander_{category}"
                 for topic in topics:
                     col1, col2 = st.columns([4, 1])
                     with col1:
@@ -288,18 +306,20 @@ def main():
                     
                     with col2:
                         if st.button(get_translation('add', st.session_state.language), key=f"add_{category}_{topic}"):
-                            with st.spinner(f"{get_translation('generating_snippet', st.session_state.language)} {topic}..."):
-                                playlist = create_playlist([topic], duration_per_topic=5)
-                                
-                                if 'current_playlist' in st.session_state:
-                                    st.session_state.current_playlist.extend(playlist)
-                                else:
-                                    st.session_state.current_playlist = playlist
-                                
-                                st.success(f"'{topic}' {get_translation('added_to_playlist', st.session_state.language)}")
-                                st.rerun()
-    
-    # Fermer la div RTL si nécessaire
+                            if f"topic_added_{topic}" not in st.session_state:
+                                with st.spinner(f"{get_translation('generating_snippet', st.session_state.language)} {topic}..."):
+                                    playlist = create_playlist([topic], duration_per_topic=5)
+                                    if 'current_playlist' in st.session_state:
+                                        st.session_state.current_playlist.extend(playlist)
+                                    else:
+                                        st.session_state.current_playlist = playlist
+                                    st.session_state[f"topic_added_{topic}"] = True
+                                    st.success(f"'{topic}' {get_translation('added_to_playlist', st.session_state.language)}")
+                                    time.sleep(1)  # Prevent rapid rerun
+                                    st.rerun()
+                            else:
+                                st.warning(f"'{topic}' {get_translation('already_added', st.session_state.language)}")
+        # Fermer la div RTL si nécessaire
     if st.session_state.language == 'ar':
         st.markdown('</div>', unsafe_allow_html=True)
 

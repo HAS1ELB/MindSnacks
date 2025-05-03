@@ -227,7 +227,19 @@ def _create_default_translations():
             'playlist_generated_success': '播放列表生成成功！',
             'language': '语言',
             'select_language': '选择语言'
-        }
+        },
+    'playlist_already_generated': {
+        'en': 'Playlist already generated. Please clear or modify the input.',
+        'fr': 'Playlist déjà généré. Veuillez effacer ou modifier l\'entrée.',
+        'es': 'Lista de reproducción ya generada. Por favor, borra o modifica la entrada.',
+        'ar': 'تم إنشاء قائمة التشغيل بالفعل. يرجى مسح أو تعديل الإدخال.'
+    },
+    'already_added': {
+        'en': 'already added to playlist.',
+        'fr': 'déjà ajouté à la playlist.',
+        'es': 'ya añadido a la lista de reproducción.',
+        'ar': 'تمت إضافته بالفعل إلى قائمة التشغيل.'
+    }    
     }
     
     for lang_code, translations_dict in translations.items():
