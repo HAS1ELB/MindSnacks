@@ -1,0 +1,37 @@
+add: Añadir
+add_to_list: Añadir a mi lista
+added_to_playlist: añadido a tu lista!
+app_description: Generador de fragmentos de aprendizaje personalizados de 5 minutos
+app_title: Spotify para Aprender
+converting_to_audio: Convirtiendo a audio para
+create_custom_playlist: Crea Tu Lista Personalizada
+create_playlist_tab: Crear Lista
+discover_new_topics: Descubrir Nuevos Temas
+discover_tab: Descubrir
+download: Descargar
+duration_per_topic: 'Duración por tema (minutos):'
+enter_at_least_one_topic: Por favor ingresa al menos un tema.
+enter_topics: 'Ingresa los temas que quieres aprender (uno por línea):'
+estimated_total_duration: Duración total estimada
+generate_playlist: Generar mi Lista
+generating_custom_playlist: Generando tu lista personalizada...
+generating_snippet: Generando fragmento para
+language: Idioma
+minutes: minutos
+my_learning_library: Mi Biblioteca de Aprendizaje
+my_library_tab: Mi Biblioteca
+no_playlist_yet: Aún no has creado una lista. Ve a la pestaña 'Crear Lista' para comenzar.
+playlist_generated_success: ¡Lista generada con éxito!
+select_language: Seleccionar un idioma
+topics_example: 'Ejemplo:
+
+  - Historia de la Revolución Francesa
+
+  - Cómo funciona la fotosíntesis
+
+  - Fundamentos de criptografía
+
+  ...'
+view_text_content: Ver contenido textual
+you_might_also_like: 'También podría interesarte:'
+your_learning_playlist: Tu Lista de Aprendizaje

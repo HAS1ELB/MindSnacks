@@ -11,15 +11,13 @@ class UserSession:
         self.history = []
         self.preferences = {
             "favorite_topics": [],
-            "last_viewed": None
+            "last_viewed": None,
+            "language": "fr"  # Langue par défaut
         }
     
     def add_snippet(self, snippet):
         """
         Ajoute un snippet à la liste des snippets de l'utilisateur.
-        
-        Args:
-            snippet (dict): Le snippet à ajouter
         """
         self.snippets.append(snippet)
         self.history.append(snippet["topic"])
@@ -31,21 +29,12 @@ class UserSession:
     def get_recent_topics(self, count=5):
         """
         Récupère les sujets récemment consultés par l'utilisateur.
-        
-        Args:
-            count (int): Le nombre de sujets à récupérer
-        
-        Returns:
-            list: Liste des sujets récents
         """
         return self.history[-count:] if self.history else []
     
     def add_favorite_topic(self, topic):
         """
         Ajoute un sujet aux favoris de l'utilisateur.
-        
-        Args:
-            topic (str): Le sujet à ajouter aux favoris
         """
         if topic not in self.preferences["favorite_topics"]:
             self.preferences["favorite_topics"].append(topic)
@@ -53,20 +42,18 @@ class UserSession:
     def get_playlist(self):
         """
         Récupère la playlist complète de l'utilisateur.
-        
-        Returns:
-            list: La liste des snippets de l'utilisateur
         """
         return self.snippets
+    
+    def set_language(self, language):
+        """
+        Définit la langue préférée de l'utilisateur.
+        """
+        self.preferences["language"] = language
 
 def save_audio_metadata(snippet_id, audio_path, duration):
     """
     Sauvegarde les métadonnées d'un fichier audio.
-    
-    Args:
-        snippet_id (str): L'ID du snippet associé
-        audio_path (str): Le chemin du fichier audio
-        duration (float): La durée du fichier audio en secondes
     """
     metadata = {
         "snippet_id": snippet_id,

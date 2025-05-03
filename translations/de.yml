@@ -1,0 +1,38 @@
+add: Hinzufügen
+add_to_list: Zu meiner Liste hinzufügen
+added_to_playlist: zu Ihrer Playlist hinzugefügt!
+app_description: Generator für 5-minütige personalisierte Lernschnipsel
+app_title: Spotify zum Lernen
+converting_to_audio: Konvertierung zu Audio für
+create_custom_playlist: Erstellen Sie Ihre benutzerdefinierte Playlist
+create_playlist_tab: Playlist erstellen
+discover_new_topics: Neue Themen entdecken
+discover_tab: Entdecken
+download: Herunterladen
+duration_per_topic: 'Dauer pro Thema (Minuten):'
+enter_at_least_one_topic: Bitte geben Sie mindestens ein Thema ein.
+enter_topics: 'Geben Sie die Themen ein, über die Sie lernen möchten (eines pro Zeile):'
+estimated_total_duration: Geschätzte Gesamtdauer
+generate_playlist: Meine Playlist generieren
+generating_custom_playlist: Ihre benutzerdefinierte Playlist wird generiert...
+generating_snippet: Generierung des Snippets für
+language: Sprache
+minutes: Minuten
+my_learning_library: Meine Lernbibliothek
+my_library_tab: Meine Bibliothek
+no_playlist_yet: Sie haben noch keine Playlist erstellt. Gehen Sie zum Tab 'Playlist
+  erstellen', um zu beginnen.
+playlist_generated_success: Playlist erfolgreich generiert!
+select_language: Sprache auswählen
+topics_example: 'Beispiel:
+
+  - Geschichte der Französischen Revolution
+
+  - Wie die Photosynthese funktioniert
+
+  - Grundlagen der Kryptographie
+
+  ...'
+view_text_content: Textinhalt anzeigen
+you_might_also_like: 'Sie könnten auch interessiert sein an:'
+your_learning_playlist: Ihre Lern-Playlist

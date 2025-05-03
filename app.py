@@ -6,7 +6,8 @@ from utils.llm_utils import generate_learning_snippet, generate_recommendation
 from utils.audio_utils import generate_audio, get_audio_duration
 from utils.data_utils import UserSession, save_audio_metadata
 from templates.recommendation_templates import get_trending_topics, get_topic_categories
-from config import APP_TITLE, APP_DESCRIPTION, AUDIO_DIR
+from config import APP_TITLE, APP_DESCRIPTION, AUDIO_DIR, AVAILABLE_LANGUAGES
+from utils.language_utils import get_translation, set_language
 
 # Configuration de la page Streamlit
 st.set_page_config(
@@ -44,6 +45,12 @@ st.markdown("""
         font-size: 14px;
         color: #B3B3B3;
     }
+    .language-selector {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        z-index: 1000;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -54,66 +61,46 @@ if 'session' not in st.session_state:
 if 'current_playlist' not in st.session_state:
     st.session_state.current_playlist = []
 
+# Initialisation de la langue
+if 'language' not in st.session_state:
+    st.session_state.language = 'fr'
+
 def create_playlist(topics, duration_per_topic=5):
     """
     Crée une playlist de snippets d'apprentissage basés sur les sujets fournis.
-    
-    Args:
-        topics (list): Liste des sujets pour la playlist
-        duration_per_topic (int): Durée en minutes pour chaque snippet
-        
-    Returns:
-        list: Liste des snippets générés avec leurs métadonnées
     """
     playlist = []
     progress_bar = st.progress(0)
     status_text = st.empty()
     
     for i, topic in enumerate(topics):
-        # Mettre à jour la barre de progression
         progress = (i) / len(topics)
         progress_bar.progress(progress)
-        status_text.text(f"Génération du snippet {i+1}/{len(topics)}: {topic}")
+        status_text.text(f"{get_translation('generating_snippet', st.session_state.language)} {i+1}/{len(topics)}: {topic}")
         
-        # Générer le contenu du snippet
-        snippet = generate_learning_snippet(topic, duration_per_topic)
+        snippet = generate_learning_snippet(topic, duration_per_topic, st.session_state.language)
         
-        # Générer l'audio
-        status_text.text(f"Conversion en audio pour: {snippet['title']}")
-        audio_path = generate_audio(snippet['content'], snippet['title'])
+        status_text.text(f"{get_translation('converting_to_audio', st.session_state.language)}: {snippet['title']}")
+        audio_path = generate_audio(snippet['content'], snippet['title'], st.session_state.language)
         
         if audio_path:
-            # Obtenir la durée de l'audio
             duration = get_audio_duration(audio_path)
-            
-            # Sauvegarder les métadonnées
             audio_metadata = save_audio_metadata(snippet['id'], audio_path, duration)
             
-            # Ajouter le chemin audio au snippet
             snippet['audio_path'] = audio_path
             snippet['audio_duration'] = duration
             
-            # Ajouter à la playlist
             playlist.append(snippet)
-            
-            # Ajouter à la session utilisateur
             st.session_state.session.add_snippet(snippet)
     
-    # Terminer la barre de progression
     progress_bar.progress(1.0)
-    status_text.text("Playlist générée avec succès!")
+    status_text.text(get_translation('playlist_generated_success', st.session_state.language))
     
     return playlist
 
 def parse_user_input(input_text):
     """
     Analyse l'entrée utilisateur pour extraire une liste de sujets.
-    
-    Args:
-        input_text (str): Le texte saisi par l'utilisateur
-        
-    Returns:
-        list: Liste des sujets extraits
     """
     lines = input_text.strip().split('\n')
     topics = []
@@ -121,11 +108,9 @@ def parse_user_input(input_text):
     for line in lines:
         line = line.strip()
         if line:
-            # Supprimer les tirets ou astérisques au début des lignes (format liste)
             if line.startswith('-') or line.startswith('*'):
                 line = line[1:].strip()
             
-            # Supprimer les numéros au début des lignes
             if line[0].isdigit() and line[1:3] in ['. ', ') ']:
                 line = line[3:].strip()
                 
@@ -136,11 +121,8 @@ def parse_user_input(input_text):
 def display_playlist(playlist):
     """
     Affiche la playlist avec des contrôles de lecture.
-    
-    Args:
-        playlist (list): Liste des snippets à afficher
     """
-    st.subheader("Votre Playlist d'Apprentissage")
+    st.subheader(get_translation('your_learning_playlist', st.session_state.language))
     
     for i, snippet in enumerate(playlist):
         col1, col2 = st.columns([4, 1])
@@ -152,48 +134,67 @@ def display_playlist(playlist):
             </div>
             """, unsafe_allow_html=True)
             
-            # Afficher le lecteur audio
             st.audio(snippet['audio_path'])
             
-            # Option pour afficher le contenu textuel
-            with st.expander("Voir le contenu textuel"):
+            with st.expander(get_translation('view_text_content', st.session_state.language)):
                 st.write(snippet['content'])
         
         with col2:
-            # Boutons d'action pour chaque snippet
             st.download_button(
-                label="Télécharger",
+                label=get_translation('download', st.session_state.language),
                 data=open(snippet['audio_path'], 'rb'),
                 file_name=f"{snippet['title']}.mp3",
                 mime="audio/mp3"
             )
 
-def main():
-    st.title("🎧 Spotify for Learning")
-    st.markdown(APP_DESCRIPTION)
+def language_selector():
+    """
+    Affiche un sélecteur de langue dans la barre latérale.
+    """
+    st.sidebar.title(get_translation('language', st.session_state.language))
+    language = st.sidebar.selectbox(
+        get_translation('select_language', st.session_state.language),
+        options=list(AVAILABLE_LANGUAGES.keys()),
+        format_func=lambda x: AVAILABLE_LANGUAGES[x],
+        index=list(AVAILABLE_LANGUAGES.keys()).index(st.session_state.language)
+    )
     
-    # Initialiser l'entrée utilisateur depuis session_state si disponible
+    if language != st.session_state.language:
+        st.session_state.language = language
+        set_language(language)
+        st.rerun()
+
+def main():
+    # Sélecteur de langue
+    language_selector()
+    
+    st.title("🎧 " + get_translation('app_title', st.session_state.language))
+    st.markdown(get_translation('app_description', st.session_state.language))
+    
     if 'user_input' not in st.session_state:
         st.session_state.user_input = ""
     
-    tab1, tab2, tab3 = st.tabs(["Créer une Playlist", "Ma Bibliothèque", "Découvrir"])
+    tab1, tab2, tab3 = st.tabs([
+        get_translation('create_playlist_tab', st.session_state.language), 
+        get_translation('my_library_tab', st.session_state.language), 
+        get_translation('discover_tab', st.session_state.language)
+    ])
     
     with tab1:
-        st.header("Créer votre Playlist Personnalisée")
+        st.header(get_translation('create_custom_playlist', st.session_state.language))
         
-        # Entrée utilisateur
         user_input = st.text_area(
-        "Entrez les sujets que vous souhaitez apprendre (un par ligne):",
-        value=st.session_state.user_input,  # Utiliser la valeur de session_state
-        height=150,
-        placeholder="Exemple:\n- L'histoire de la Révolution française\n- Comment fonctionne la photosynthèse\n- Les bases de la cryptographie\n..."
-    )
+            get_translation('enter_topics', st.session_state.language),
+            value=st.session_state.user_input,
+            height=150,
+            placeholder=get_translation('topics_example', st.session_state.language)
+        )
         
         col1, col2 = st.columns(2)
         
         with col1:
             duration_per_topic = st.slider(
-                "Durée par sujet (minutes):",
+                get_translation('duration_per_topic', st.session_state.language),
                 min_value=3,
                 max_value=10,
                 value=5,
@@ -205,27 +206,25 @@ def main():
             if user_input:
                 topics = parse_user_input(user_input)
                 estimated_time = len(topics) * duration_per_topic
-                total_duration.info(f"Durée totale estimée: {estimated_time} minutes")
+                total_duration.info(f"{get_translation('estimated_total_duration', st.session_state.language)}: {estimated_time} {get_translation('minutes', st.session_state.language)}")
         
-        # Bouton pour générer la playlist
-        if st.button("Générer ma Playlist"):
+        if st.button(get_translation('generate_playlist', st.session_state.language)):
             if user_input:
                 topics = parse_user_input(user_input)
                 if topics:
-                    with st.spinner("Génération de votre playlist personnalisée..."):
+                    with st.spinner(get_translation('generating_custom_playlist', st.session_state.language)):
                         playlist = create_playlist(topics, duration_per_topic)
                         st.session_state.current_playlist = playlist
                         st.rerun()
                 else:
-                    st.error("Veuillez entrer au moins un sujet.")
+                    st.error(get_translation('enter_at_least_one_topic', st.session_state.language))
             else:
-                st.error("Veuillez entrer au moins un sujet.")
+                st.error(get_translation('enter_at_least_one_topic', st.session_state.language))
         
-        # Afficher les recommandations basées sur l'historique
         if st.session_state.session.history:
-            st.subheader("Vous pourriez aussi être intéressé par:")
+            st.subheader(get_translation('you_might_also_like', st.session_state.language))
             recent_topics = st.session_state.session.get_recent_topics()
-            recommendations = generate_recommendation(recent_topics, 3)
+            recommendations = generate_recommendation(recent_topics, 3, st.session_state.language)
             
             for i, rec in enumerate(recommendations):
                 st.markdown(f"""
@@ -234,31 +233,27 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Bouton pour ajouter à la liste
-                if st.button(f"Ajouter à ma liste", key=f"add_rec_{i}"):
+                if st.button(f"{get_translation('add_to_list', st.session_state.language)}", key=f"add_rec_{i}"):
                     current_input = user_input.strip()
                     new_input = current_input + f"\n- {rec}" if current_input else f"- {rec}"
-                    # Utiliser session_state au lieu de query_params pour une solution plus robuste
                     st.session_state.user_input = new_input
                     st.rerun()
 
     
     with tab2:
-        st.header("Ma Bibliothèque d'Apprentissage")
+        st.header(get_translation('my_learning_library', st.session_state.language))
         
-        # Afficher la playlist actuelle
         if st.session_state.current_playlist:
             display_playlist(st.session_state.current_playlist)
         elif st.session_state.session.snippets:
             display_playlist(st.session_state.session.get_playlist())
         else:
-            st.info("Vous n'avez pas encore créé de playlist. Allez dans l'onglet 'Créer une Playlist' pour commencer.")
+            st.info(get_translation('no_playlist_yet', st.session_state.language))
     
     with tab3:
-        st.header("Découvrir de Nouveaux Sujets")
+        st.header(get_translation('discover_new_topics', st.session_state.language))
         
-        # Afficher les catégories de sujets
-        categories = get_topic_categories()
+        categories = get_topic_categories(st.session_state.language)
         
         for category, topics in categories.items():
             with st.expander(category):
@@ -272,18 +267,16 @@ def main():
                         """, unsafe_allow_html=True)
                     
                     with col2:
-                        if st.button("Ajouter", key=f"add_{category}_{topic}"):
-                            # Créer un snippet unique pour ce sujet
-                            with st.spinner(f"Génération du snippet sur {topic}..."):
+                        if st.button(get_translation('add', st.session_state.language), key=f"add_{category}_{topic}"):
+                            with st.spinner(f"{get_translation('generating_snippet', st.session_state.language)} {topic}..."):
                                 playlist = create_playlist([topic], duration_per_topic=5)
                                 
-                                # Ajouter à la playlist actuelle
                                 if 'current_playlist' in st.session_state:
                                     st.session_state.current_playlist.extend(playlist)
                                 else:
                                     st.session_state.current_playlist = playlist
                                 
-                                st.success(f"'{topic}' ajouté à votre playlist!")
+                                st.success(f"'{topic}' {get_translation('added_to_playlist', st.session_state.language)}")
                                 st.rerun()
 
 if __name__ == "__main__":

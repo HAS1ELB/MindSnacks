@@ -7,39 +7,27 @@ from templates.prompt_templates import get_learning_prompt, get_recommendation_p
 # Initialiser le client Groq
 client = groq.Groq(api_key=GROQ_API_KEY)
 
-def generate_learning_snippet(topic, duration_minutes=5):
+def generate_learning_snippet(topic, duration_minutes=5, language='fr'):
     """
     Génère un snippet d'apprentissage sur un sujet spécifique.
-    
-    Args:
-        topic (str): Le sujet pour lequel générer un snippet d'apprentissage
-        duration_minutes (int): Durée cible en minutes pour le snippet audio
-    
-    Returns:
-        dict: Dictionnaire contenant le titre et le contenu du snippet
     """
-    # Estimer le nombre de mots pour la durée cible (environ 150 mots/minute pour l'audio)
     target_word_count = duration_minutes * 150
     
-    # Construire le prompt pour le LLM
-    prompt = get_learning_prompt(topic, target_word_count)
+    prompt = get_learning_prompt(topic, target_word_count, language)
     
     try:
-        # Appeler l'API Groq avec Llama4
         response = client.chat.completions.create(
             model=LLAMA4_MODEL,
             messages=[
-                {"role": "system", "content": "Vous êtes un expert éducatif qui crée des explications claires, engageantes et informatives sur divers sujets. Votre tâche est de générer un contenu audio de 5 minutes qui est à la fois informatif et agréable à écouter."},
+                {"role": "system", "content": "Vous êtes un expert éducatif qui crée des explications claires, engageantes et informatives sur divers sujets. Votre tâche est de générer un contenu audio de 5 minutes qui est à la fois informatif et agréable à écouter. Répondez dans la langue spécifiée par l'utilisateur."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,
             max_tokens=1500,
         )
         
-        # Extraire et traiter la réponse
         content = response.choices[0].message.content
         
-        # Extraire le titre et le contenu
         lines = content.split('\n')
         title = lines[0].replace('# ', '').strip()
         body = '\n'.join(lines[1:]).strip()
@@ -50,47 +38,53 @@ def generate_learning_snippet(topic, duration_minutes=5):
             "content": body,
             "topic": topic,
             "target_duration": duration_minutes,
+            "language": language
         }
     
     except Exception as e:
         print(f"Erreur lors de la génération du contenu: {e}")
+        
+        # Messages d'erreur multilingues
+        error_messages = {
+            'fr': f"Nous n'avons pas pu générer de contenu pour {topic} en raison d'une erreur. Veuillez réessayer plus tard.",
+            'en': f"We couldn't generate content for {topic} due to an error. Please try again later.",
+            'es': f"No pudimos generar contenido para {topic} debido a un error. Por favor, inténtalo más tarde.",
+            'de': f"Wir konnten für {topic} aufgrund eines Fehlers keinen Inhalt generieren. Bitte versuchen Sie es später erneut.",
+            'it': f"Non abbiamo potuto generare contenuti per {topic} a causa di un errore. Per favore riprova più tardi.",
+            'ja': f"エラーのため、{topic}のコンテンツを生成できませんでした。後でもう一度お試しください。",
+            'zh': f"由于错误，我们无法为{topic}生成内容。请稍后再试。"
+        }
+        
+        error_message = error_messages.get(language, error_messages['en'])
+        
         return {
             "id": str(uuid.uuid4()),
             "title": f"Introduction à {topic}",
-            "content": f"Nous n'avons pas pu générer de contenu pour {topic} en raison d'une erreur. Veuillez réessayer plus tard.",
+            "content": error_message,
             "topic": topic,
             "target_duration": duration_minutes,
+            "language": language
         }
 
-def generate_recommendation(previous_topics, count=1):
+def generate_recommendation(previous_topics, count=1, language='fr'):
     """
     Génère des recommandations de sujets basés sur les intérêts précédents de l'utilisateur.
-    
-    Args:
-        previous_topics (list): Liste des sujets précédemment demandés par l'utilisateur
-        count (int): Nombre de recommandations à générer
-    
-    Returns:
-        list: Liste des sujets recommandés
     """
-    prompt = get_recommendation_prompt(previous_topics, count)
+    prompt = get_recommendation_prompt(previous_topics, count, language)
     
     try:
-        # Appeler l'API Groq avec Llama4
         response = client.chat.completions.create(
             model=LLAMA4_MODEL,
             messages=[
-                {"role": "system", "content": "Vous êtes un expert en recommandation de contenu éducatif. Votre tâche est de suggérer des sujets intéressants basés sur les intérêts précédents de l'utilisateur."},
+                {"role": "system", "content": "Vous êtes un expert en recommandation de contenu éducatif. Votre tâche est de suggérer des sujets intéressants basés sur les intérêts précédents de l'utilisateur. Répondez dans la langue spécifiée par l'utilisateur."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.8,
             max_tokens=500,
         )
         
-        # Extraire et traiter la réponse
         content = response.choices[0].message.content
         
-        # Extraire les recommandations (supposant un format de liste)
         recommendations = []
         for line in content.split('\n'):
             line = line.strip()
@@ -101,9 +95,20 @@ def generate_recommendation(previous_topics, count=1):
             elif line and not line.startswith('```'):
                 recommendations.append(line)
         
-        # Limiter au nombre demandé
         return recommendations[:count]
     
     except Exception as e:
         print(f"Erreur lors de la génération des recommandations: {e}")
-        return [f"Un sujet connexe à {', '.join(previous_topics[:2])}"]
+        
+        # Message par défaut dans la langue demandée
+        default_messages = {
+            'fr': f"Un sujet connexe à {', '.join(previous_topics[:2])}",
+            'en': f"A topic related to {', '.join(previous_topics[:2])}",
+            'es': f"Un tema relacionado con {', '.join(previous_topics[:2])}",
+            'de': f"Ein Thema im Zusammenhang mit {', '.join(previous_topics[:2])}",
+            'it': f"Un argomento correlato a {', '.join(previous_topics[:2])}",
+            'ja': f"{', '.join(previous_topics[:2])}に関連するトピック",
+            'zh': f"与{', '.join(previous_topics[:2])}相关的主题"
+        }
+        
+        return [default_messages.get(language, default_messages['en'])]
