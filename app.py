@@ -271,11 +271,18 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
                 
+                if 'added_recommendations' not in st.session_state:
+                    st.session_state.added_recommendations = set()
+
                 if st.button(f"{get_translation('add_to_list', st.session_state.language)}", key=f"add_rec_{i}"):
-                    current_input = user_input.strip()
-                    new_input = current_input + f"\n- {rec}" if current_input else f"- {rec}"
-                    st.session_state.user_input = new_input
-                    st.rerun()
+                    if rec not in st.session_state.added_recommendations:
+                        current_input = user_input.strip()
+                        new_input = current_input + f"\n- {rec}" if current_input else f"- {rec}"
+                        st.session_state.user_input = new_input
+                        st.session_state.added_recommendations.add(rec)
+                        st.success(f"'{rec}' {get_translation('added_to_playlist', st.session_state.language)}")
+                    else:
+                        st.warning(f"'{rec}' {get_translation('already_added', st.session_state.language)}")
 
     
     with tab2:
