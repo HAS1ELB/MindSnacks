@@ -12,7 +12,7 @@ def _create_default_translations():
     """
     translations = {
         'fr': {
-            'app_title': 'Spotify for Learning',
+            'app_title': "Spotify pour l'Apprentissage",
             'app_description': 'Générateur de snippets d\'apprentissage personnalisés de 5 minutes',
             'create_playlist_tab': 'Créer une Playlist',
             'my_library_tab': 'Ma Bibliothèque',
