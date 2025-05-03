@@ -7,5 +7,5 @@ numpy==1.26.0
 gtts==2.3.2
 elevenlabs==1.0.0
 edge-tts
-pyyaml==6.0
+pyyaml==6.0.1
 num2words==0.5.14
