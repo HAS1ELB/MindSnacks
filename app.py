@@ -218,24 +218,14 @@ def main():
             placeholder=get_translation('topics_example', st.session_state.language)
         )
         
-        col1, col2 = st.columns(2)
+        # Fixed duration per topic to 5 minutes
+        duration_per_topic = 5
         
-        with col1:
-            duration_per_topic = st.slider(
-                get_translation('duration_per_topic', st.session_state.language),
-                min_value=3,
-                max_value=10,
-                value=5,
-                step=1,
-                key="duration_per_topic_slider"
-            )
-        
-        with col2:
-            total_duration = st.empty()
-            if user_input:
-                topics = parse_user_input(user_input)
-                estimated_time = len(topics) * duration_per_topic
-                total_duration.info(f"{get_translation('estimated_total_duration', st.session_state.language)}: {estimated_time} {get_translation('minutes', st.session_state.language)}")
+        # Display estimated total duration
+        if user_input:
+            topics = parse_user_input(user_input)
+            estimated_time = len(topics) * duration_per_topic
+            st.info(f"{get_translation('estimated_total_duration', st.session_state.language)}: {estimated_time} {get_translation('minutes', st.session_state.language)}")
         
         if 'playlist_generated' not in st.session_state:
             st.session_state.playlist_generated = False
@@ -341,8 +331,6 @@ def main():
         # Fermer la div RTL si nécessaire
     if st.session_state.language == 'ar':
         st.markdown('</div>', unsafe_allow_html=True)
-
-
 
 if __name__ == "__main__":
     main()
