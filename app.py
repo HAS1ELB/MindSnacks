@@ -74,6 +74,11 @@ def create_playlist(topics, duration_per_topic=5):
     """
     Crée une playlist de snippets d'apprentissage basés sur les sujets fournis.
     """
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+    logger.info(f"Starting playlist creation for topics: {topics}, duration_per_topic: {duration_per_topic}")
+    
     playlist = []
     progress_bar = st.progress(0)
     status_text = st.empty()
@@ -82,11 +87,14 @@ def create_playlist(topics, duration_per_topic=5):
         progress = (i) / len(topics)
         progress_bar.progress(progress)
         status_text.text(f"{get_translation('generating_snippet', st.session_state.language)} {i+1}/{len(topics)}: {topic}")
+        logger.info(f"Generating snippet {i+1}/{len(topics)} for topic: {topic}")
         
         snippet = generate_learning_snippet(topic, duration_per_topic, st.session_state.language)
+        logger.info(f"Snippet generated: ID={snippet['id']}, Title={snippet['title']}")
         
         status_text.text(f"{get_translation('converting_to_audio', st.session_state.language)}: {snippet['title']}")
         audio_path = generate_audio(snippet['content'], snippet['title'], st.session_state.language)
+        logger.info(f"Audio generated for snippet ID={snippet['id']}: {audio_path}")
         
         if audio_path:
             duration = get_audio_duration(audio_path)
@@ -97,9 +105,11 @@ def create_playlist(topics, duration_per_topic=5):
             
             playlist.append(snippet)
             st.session_state.session.add_snippet(snippet)
+            logger.info(f"Snippet added to playlist: ID={snippet['id']}")
     
     progress_bar.progress(1.0)
     status_text.text(get_translation('playlist_generated_success', st.session_state.language))
+    logger.info(f"Playlist creation complete: {len(playlist)} snippets")
     
     return playlist
 

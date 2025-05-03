@@ -100,6 +100,10 @@ def generate_audio(text, title, language='fr'):
     """
     Génère un fichier audio à partir d'un texte donné en utilisant edge-tts avec un fallback à gTTS pour l'arabe.
     """
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info(f"Generating audio for title: {title}, language: {language}")
+    
     try:
         # Nettoyer le titre et le texte
         cleaned_title = clean_text_for_tts(title, language)
@@ -107,12 +111,12 @@ def generate_audio(text, title, language='fr'):
         
         # Vérifier si le texte nettoyé est valide
         if not cleaned_text or not cleaned_title:
-            print("Erreur: Le texte ou le titre nettoyé est vide après traitement.")
+            logger.error("Erreur: Le texte ou le titre nettoyé est vide après traitement.")
             return None
         
         # Debugging: Afficher le texte nettoyé
-        print(f"Titre nettoyé: {cleaned_title}")
-        print(f"Texte nettoyé: {cleaned_text[:100]}...")  # Limiter à 100 caractères
+        logger.info(f"Titre nettoyé: {cleaned_title}")
+        logger.info(f"Texte nettoyé: {cleaned_text[:100]}...")
         
         # Ajouter une pause après le titre
         full_text = f"{cleaned_title}. {cleaned_text}"
@@ -126,31 +130,32 @@ def generate_audio(text, title, language='fr'):
         # Essayer chaque voix disponible pour la langue avec edge-tts
         voices = VOICE_MAPPING.get(language, ["fr-FR-HenriNeural"])
         for i, voice in enumerate(voices):
-            print(f"Tentative avec la voix {voice} ({i+1}/{len(voices)})...")
+            logger.info(f"Tentative avec la voix {voice} ({i+1}/{len(voices)})...")
             success = loop.run_until_complete(_generate_edge_tts_audio(full_text, filepath, language, voice_index=i))
             if success:
                 loop.close()
+                logger.info(f"Audio generation successful: {filepath}")
                 return filepath
         
         # Si edge-tts échoue pour toutes les voix et que la langue est arabe, utiliser gTTS comme fallback
         if language == 'ar':
-            print("Échec avec edge-tts, tentative avec gTTS pour l'arabe...")
+            logger.info("Échec avec edge-tts, tentative avec gTTS pour l'arabe...")
             tts = gTTS(text=full_text, lang='ar')
             tts.save(filepath)
             if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
-                print(f"Fichier audio généré avec succès via gTTS: {filepath}")
+                logger.info(f"Fichier audio généré avec succès via gTTS: {filepath}")
                 loop.close()
                 return filepath
             else:
-                print("Échec de la génération audio avec gTTS.")
+                logger.error("Échec de la génération audio avec gTTS.")
         
         # Si toutes les tentatives échouent
-        print("Échec de la génération audio avec toutes les méthodes disponibles.")
+        logger.error("Échec de la génération audio avec toutes les méthodes disponibles.")
         loop.close()
         return None
             
     except Exception as e:
-        print(f"Erreur grave lors de la génération audio: {str(e)}")
+        logger.error(f"Erreur grave lors de la génération audio: {str(e)}")
         return None
 
 def get_audio_duration(filepath):
