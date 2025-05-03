@@ -252,7 +252,15 @@ def main():
         if st.session_state.session.history:
             st.subheader(get_translation('you_might_also_like', st.session_state.language))
             recent_topics = st.session_state.session.get_recent_topics()
-            recommendations = generate_recommendation(recent_topics, 3, st.session_state.language)
+
+            # Vérifier si les recommandations existent dans l'état, sinon les générer
+            if 'cached_recommendations' not in st.session_state or st.session_state.get('recent_topics_hash') != hash(tuple(recent_topics)):
+                st.session_state.cached_recommendations = generate_recommendation(recent_topics, 3, st.session_state.language)
+                st.session_state.recent_topics_hash = hash(tuple(recent_topics))  # Stocker un hash des sujets pour détecter les changements
+                import logging
+                logging.info(f"Generated new recommendations: {st.session_state.cached_recommendations}")
+
+            recommendations = st.session_state.cached_recommendations
             
             # Initialize a set to track added recommendations
             if 'added_recommendations' not in st.session_state:
@@ -265,7 +273,9 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
                 
-                if st.button(f"{get_translation('add_to_list', st.session_state.language)}", key=f"add_rec_{i}"):
+                # Utiliser une clé unique basée sur le contenu de la recommandation
+                button_key = f"add_rec_{i}_{hash(rec)}"
+                if st.button(f"{get_translation('add_to_list', st.session_state.language)}", key=button_key):
                     if rec not in st.session_state.added_recommendations:
                         # Add to user_input
                         current_input = user_input.strip()
@@ -286,7 +296,6 @@ def main():
                                 st.error(f"Échec de la génération du snippet pour '{rec}'.")
                     else:
                         st.warning(f"'{rec}' {get_translation('already_added', st.session_state.language)}")
-        
     with tab2:
         st.header(get_translation('my_learning_library', st.session_state.language))
         
