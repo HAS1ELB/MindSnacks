@@ -1,150 +1,93 @@
-# Mindsnacks: Spotify for Learning
+# Mindsnacks v2
 
-## Project Description
+**Spotify for Learning**: Customized audio learning snippets for curious minds
 
-Mindsnacks is an innovative web application designed to deliver customized, 5-minute audio learning snippets, akin to a "Spotify for Learning." Users can create personalized playlists by entering topics of interest, explore trending topics, or discover new subjects across various categories. The app supports multiple languages (French, English, Spanish, German, Italian, Japanese, Chinese, and Arabic) and uses text-to-speech (TTS) technology to convert educational content into engaging audio files. Built with Streamlit, the application leverages the Grok API for content generation and Edge TTS for high-quality audio output, with a fallback to gTTS for Arabic.
+![Mindsnacks Screenshot](architecture_diagram.png)
 
-The app is currently deployed and accessible at [https://has1elb-mindsnacks-app-kvbioi.streamlit.app/](https://has1elb-mindsnacks-app-kvbioi.streamlit.app/).
+## About
+
+Mindsnacks is an advanced audio learning platform that generates customized educational content on any topic. Think of it as "Spotify for Learning" - a platform that provides bite-sized audio learning snippets that you can listen to anytime, anywhere.
 
 ## Features
 
-* **Custom Playlist Creation** : Users can input topics to generate audio snippets tailored to their interests.
-* **Multilingual Support** : Content and interface available in 8 languages with RTL support for Arabic.
-* **Discover Tab** : Offers curated trending topics and categorized subjects for exploration.
-* **Recommendation Engine** : Suggests new topics based on user history.
-* **Audio Download** : Users can download generated audio files in MP3 format.
-* **Responsive UI** : Streamlit-based interface with a Spotify-inspired dark theme and intuitive navigation.
+- **Topic Discovery**: Explore trending topics, curated playlists, and follow guided learning paths
+- **Content Library**: Manage your learning content with playlists and favorites
+- **Audio Learning**: Listen to educational snippets with high-quality TTS generation
+- **Quiz Generation**: Test your knowledge with auto-generated quizzes
+- **Multi-language Support**: Available in English, French, Spanish, German, Italian, Japanese, Chinese, Arabic, Portuguese, Russian, and Korean
+- **Offline Mode**: Download content for offline listening
+- **Personalization**: Track your learning progress and get personalized recommendations
 
-## Setup Instructions
+## Installation
 
-To run the Mindsnacks application locally, follow these steps:
+### Prerequisites
 
-1. **Clone the Repository** :
+- Python 3.10+
+- Node.js 18+
+- Access to Groq API (or other LLM provider)
 
-```bash
-   git clone https://github.com/HAS1ELB/MindSnacks
-   cd MindSnacks
-```
+### Setup
 
-1. **Set Up a Virtual Environment** (recommended):
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/mindsnacks-v2.git
+   cd mindsnacks-v2
+   ```
+
+2. Create a virtual environment:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-2. **Install Dependencies** : Install the required packages listed in `requirements.txt`:
 
-```bash
+3. Install dependencies:
+   ```bash
    pip install -r requirements.txt
-```
+   ```
 
-1. **Configure Environment Variables** : Create a `.env` file in the project root and add your Grok API key:
+4. Create a `.env` file with your API keys (see `.env.example` for template)
 
-```bash
-   GROQ_API_KEY=your_grok_api_key
-```
-
-   Obtain the API key from [https://x.ai/api](https://x.ai/api).
-
-1. **Run the Application** : Launch the Streamlit app:
-
-```bash
+5. Run the application:
+   ```bash
    streamlit run app.py
-```
+   ```
 
-   The app will be accessible at `http://localhost:8501` in your browser.
+## Project Structure
 
-1. **Directory Setup** : Ensure the `static/audio` and `translations` directories exist. These are automatically created if missing, as specified in `config.py`.
+The application follows a modular architecture:
 
-## List of Dependencies
+- `app.py`: Main application entry point
+- `pages/`: Multi-page Streamlit app structure
+- `utils/`: Utility modules for audio, data, LLM, etc.
+- `templates/`: Templates for prompts, recommendations, etc.
+- `components/`: Reusable UI components
+- `models/`: Machine learning models and analytics
+- `static/`: Static assets (audio, images, etc.)
+- `translations/`: Language translation files
 
-The project dependencies are listed in `requirements.txt`:
+For a detailed structure, see [project_structure.md](project_structure.md).
 
-```
-streamlit==1.28.0
-groq>=0.9.0
-python-dotenv==1.0.0
-requests==2.31.0
-pydub==0.25.1
-numpy==1.26.0
-gtts==2.3.2
-elevenlabs==1.0.0
-edge-tts
-pyyaml==6.0.1
-num2words==0.5.14
-```
+## API Keys
 
-## Environment Files
+To use all features, you'll need:
 
-* `.env`: Stores sensitive information like `GROQ_API_KEY`. Ensure this file is not committed to version control (add to `.gitignore`).
-* **Directory Structure** :
-
-```
-  has1elb-mindsnacks/
-  ├── app.py
-  ├── config.py
-  ├── requirements.txt
-  ├── README.md
-  ├── static/
-  │   └── css/
-  │       └── style.css
-  ├── templates/
-  │   ├── prompt_templates.py
-  │   └── recommendation_templates.py
-  ├── translations/
-  │   ├── already_added.yml
-  │   ├── ar.yml
-  │   ├── de.yml
-  │   ├── en.yml
-  │   ├── es.yml
-  │   ├── fr.yml
-  │   ├── it.yml
-  │   ├── ja.yml
-  │   ├── playlist_already_generated.yml
-  │   └── zh.yml
-  └── utils/
-      ├── __init__.py
-      ├── audio_utils.py
-      ├── data_utils.py
-      ├── language_utils.py
-      └── llm_utils.py
-```
-
-## Deployment
-
-The Mindsnacks application is deployed and publicly accessible at the following URL:
-
- **Live Application** : [https://has1elb-mindsnacks-app-kvbioi.streamlit.app/](https://has1elb-mindsnacks-app-kvbioi.streamlit.app/)
-
-The app is hosted on Streamlit Cloud, ensuring reliable access for users. Any updates to the codebase require redeployment to reflect changes on the live site.
-
-## Usage
-
-1. **Select Language** : Choose your preferred language from the sidebar.
-2. **Create Playlist** : In the "Create Playlist" tab, enter topics (one per line) and select the duration per topic (3-10 minutes). Click "Generate my Playlist" to create audio snippets.
-3. **Explore Library** : The "My Library" tab displays your generated playlists with options to play, view text, or download audio.
-4. **Discover Topics** : The "Discover" tab offers trending topics and categorized subjects to add to your playlist.
-
-## Notes
-
-* **Arabic Support** : Uses Edge TTS with `ar-SA-ZariyahNeural` voice and falls back to gTTS for robust audio generation.
-* **Caching** : Translation files are cached in memory to improve performance.
-* **Error Handling** : The app includes logging and fallback mechanisms for content generation and audio synthesis failures.
-* **Deployment** : The app is hosted on Streamlit Cloud. Local changes require redeployment to update the live version.
+- **Groq API Key**: For LLM content generation
+- **ElevenLabs API Key** (optional): For premium voice generation
 
 ## Contributing
 
-Contributions are welcome! Please:
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/your-feature`).
-3. Commit changes (`git commit -m 'Add your feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Open a pull request.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -m 'Add feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see LICENSE file for details.
 
-## Contact
+## Acknowledgments
 
-For issues or inquiries, please open an issue on the repository or contact the maintainer at [elbahraouihassan54@gmail.com](mailto:elbahraouihassan54@gmail.com)
+- Streamlit team for the amazing framework
+- Groq for the LLM API
+- All contributors who have helped improve the project

@@ -1,37 +1,197 @@
-add: Añadir
-add_to_list: Añadir a mi lista
-added_to_playlist: añadido a tu lista!
-app_description: Generador de fragmentos de aprendizaje personalizados de 5 minutos
-app_title: Spotify para Aprender
-converting_to_audio: Convirtiendo a audio para
-create_custom_playlist: Crea Tu Lista Personalizada
-create_playlist_tab: Crear Lista
-discover_new_topics: Descubrir Nuevos Temas
-discover_tab: Descubrir
-download: Descargar
-duration_per_topic: 'Duración por tema (minutos):'
-enter_at_least_one_topic: Por favor ingresa al menos un tema.
-enter_topics: 'Ingresa los temas que quieres aprender (uno por línea):'
-estimated_total_duration: Duración total estimada
-generate_playlist: Generar mi Lista
-generating_custom_playlist: Generando tu lista personalizada...
-generating_snippet: Generando fragmento para
-language: Idioma
-minutes: minutos
-my_learning_library: Mi Biblioteca de Aprendizaje
-my_library_tab: Mi Biblioteca
-no_playlist_yet: Aún no has creado una lista. Ve a la pestaña 'Crear Lista' para comenzar.
-playlist_generated_success: ¡Lista generada con éxito!
-select_language: Seleccionar un idioma
-topics_example: 'Ejemplo:
+app_title: "Mindsnacks: Spotify para el Aprendizaje"
+welcome: "Bienvenido a Mindsnacks"
+welcome_subtitle: "La plataforma de aprendizaje de audio para mentes curiosas"
+get_started: "Comenzar"
+login: "Iniciar Sesión"
+signup: "Registrarse"
+logout: "Cerrar Sesión"
+profile: "Perfil"
+settings: "Configuración"
 
-  - Historia de la Revolución Francesa
+# Navigation
+home: "Inicio"
+discover: "Descubrir"
+library: "Biblioteca"
+quiz: "Cuestionario"
+create: "Crear"
+analytics: "Análisis"
 
-  - Cómo funciona la fotosíntesis
+# Discover Page
+discover_new_topics: "Descubrir Nuevos Temas"
+explore_and_expand: "Explora y expande tu conocimiento"
+trending_now: "Tendencias Actuales"
+trending_description: "Temas populares que los estudiantes están explorando ahora"
+add_trending_topics: "Añadir Temas Tendencia"
+select_topics: "Seleccionar temas"
+add_selected: "Añadir Seleccionados"
+generating_snippets: "Generando fragmentos..."
+preview: "Vista previa"
+add_all: "Añadir Todos"
+interactive_explorer: "Explorador Interactivo"
+explorer_description: "Comienza con un tema que te interese y explora conceptos relacionados"
+enter_topic: "Introduce un tema que te interese"
+explore: "Explorar"
+related_topics: "Temas Relacionados"
+exploration_history: "Historial de Exploración"
+jump_back: "Volver Atrás"
+learn_more: "Aprender Más"
+learning_paths: "Rutas de Aprendizaje"
+learning_paths_description: "Sigue rutas seleccionadas para dominar un tema paso a paso"
+start_path: "Comenzar Ruta"
+preparing_path: "Preparando tu ruta de aprendizaje..."
+path_started: "¡Tu ruta de aprendizaje ha comenzado! Ve a la Biblioteca para continuar."
+explore_this: "Explorar Esto"
+add_to_playlist: "Añadir a la Lista"
+add: "Añadir"
+generating_snippet: "Generando fragmento..."
+added_to_playlist: "añadido a tu lista de reproducción"
 
-  - Fundamentos de criptografía
+# Library Page
+your_library: "Tu Biblioteca"
+current_playlist: "Lista Actual"
+saved_playlists: "Listas Guardadas"
+history: "Historial"
+no_snippets: "Aún no hay fragmentos en tu lista"
+discover_snippets: "Descubrir Fragmentos"
+now_playing: "Reproduciendo"
+playlist_empty: "Tu lista está vacía"
+clear_playlist: "Vaciar Lista"
+save_playlist: "Guardar Lista"
+playlist_name: "Nombre de la Lista"
+save: "Guardar"
+playlist_saved: "Lista guardada con éxito"
+delete_playlist: "Eliminar Lista"
+confirm_delete: "¿Estás seguro de que quieres eliminar esta lista?"
+yes_delete: "Sí, Eliminar"
+cancel: "Cancelar"
+play_all: "Reproducir Todo"
+export_playlist: "Exportar Lista"
+shuffle: "Aleatorio"
+share: "Compartir"
+new_playlist: "Nueva Lista"
+snippet_details: "Detalles del Fragmento"
+take_quiz: "Realizar Cuestionario"
 
-  ...'
-view_text_content: Ver contenido textual
-you_might_also_like: 'También podría interesarte:'
-your_learning_playlist: Tu Lista de Aprendizaje
+# Quiz Page
+quiz_title: "Pon a Prueba tus Conocimientos"
+quiz_subtitle: "Desafíate a ti mismo en temas que has aprendido"
+generate_quiz: "Generar Cuestionario"
+choose_topic: "Elegir Tema"
+quiz_difficulty: "Dificultad"
+easy: "Fácil"
+medium: "Media"
+hard: "Difícil"
+num_questions: "Número de Preguntas"
+start_quiz: "Comenzar Cuestionario"
+quiz_loading: "Preparando tu cuestionario..."
+question: "Pregunta"
+of: "de"
+submit_answer: "Enviar Respuesta"
+next_question: "Siguiente Pregunta"
+previous_question: "Pregunta Anterior"
+skip: "Saltar"
+quiz_results: "Resultados del Cuestionario"
+correct_answers: "Respuestas Correctas"
+your_score: "Tu Puntuación"
+restart_quiz: "Intentar de Nuevo"
+review_answers: "Revisar Respuestas"
+explanation: "Explicación"
+your_answer: "Tu Respuesta"
+correct_answer: "Respuesta Correcta"
+time_taken: "Tiempo Empleado"
+create_new_quiz: "Crear Nuevo Cuestionario"
+share_results: "Compartir Resultados"
+
+# Create Page
+create_title: "Crear Contenido de Aprendizaje"
+create_subtitle: "Genera fragmentos de aprendizaje personalizados sobre cualquier tema"
+enter_topic_create: "¿Sobre qué tema te gustaría aprender?"
+content_length: "Longitud del Contenido"
+short: "Corto"
+standard: "Estándar"
+detailed: "Detallado"
+content_language: "Idioma"
+voice_options: "Opciones de Voz"
+generate_content: "Generar Contenido"
+regenerate: "Regenerar"
+save_to_library: "Guardar en Biblioteca"
+generating_content: "Generando contenido..."
+generating_audio: "Generando audio..."
+edit_content: "Editar Contenido"
+preview_audio: "Previsualizar Audio"
+content_saved: "Contenido guardado en biblioteca"
+
+# Settings Page
+settings_title: "Configuración"
+app_settings: "Configuración de la Aplicación"
+language_settings: "Idioma"
+theme: "Tema"
+dark_mode: "Modo Oscuro"
+light_mode: "Modo Claro"
+audio_settings: "Configuración de Audio"
+voice_selection: "Voz Predeterminada"
+playback_speed: "Velocidad de Reproducción Predeterminada"
+quality: "Calidad de Audio"
+high: "Alta"
+medium: "Media"
+low: "Baja"
+storage: "Almacenamiento"
+clear_cache: "Limpiar Caché"
+app_info: "Información de la Aplicación"
+version: "Versión"
+about: "Acerca de"
+help: "Ayuda"
+feedback: "Enviar Comentarios"
+save_settings: "Guardar Configuración"
+settings_saved: "Configuración guardada con éxito"
+
+# Profile Page
+profile_title: "Tu Perfil"
+learning_stats: "Estadísticas de Aprendizaje"
+topics_explored: "Temas Explorados"
+snippets_created: "Fragmentos Creados"
+listening_time: "Tiempo Total de Escucha"
+quizzes_taken: "Cuestionarios Realizados"
+avg_score: "Puntuación Media"
+achievements: "Logros"
+learning_streak: "Racha de Aprendizaje"
+days: "días"
+export_data: "Exportar tus Datos"
+delete_account: "Eliminar Cuenta"
+edit_profile: "Editar Perfil"
+account_settings: "Configuración de la Cuenta"
+
+# Error Messages
+error_generate: "Error al generar contenido. Por favor, inténtalo de nuevo."
+error_audio: "Error al generar audio. Por favor, inténtalo de nuevo."
+error_connection: "Error de conexión. Por favor, comprueba tu conexión a internet."
+error_save: "Error al guardar datos. Por favor, inténtalo de nuevo."
+
+# Success Messages
+success_save: "¡Guardado con éxito!"
+success_export: "¡Exportado con éxito!"
+success_updated: "¡Actualizado con éxito!"
+
+# Common Actions
+play: "Reproducir"
+pause: "Pausar"
+stop: "Detener"
+resume: "Reanudar"
+refresh: "Actualizar"
+delete: "Eliminar"
+edit: "Editar"
+done: "Hecho"
+loading: "Cargando..."
+
+# Misc
+share_snippet: "Compartir este fragmento"
+copied_to_clipboard: "Copiado al portapapeles"
+see_more: "Ver Más"
+see_less: "Ver Menos"
+search: "Buscar"
+filter: "Filtrar"
+sort_by: "Ordenar Por"
+date_added: "Fecha Añadida"
+alphabetical: "Alfabético"
+duration: "Duración"
+popular: "Popular"

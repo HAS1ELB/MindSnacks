@@ -1,37 +1,17 @@
-add: 添加
-add_to_list: 添加到我的列表
-added_to_playlist: 已添加到您的播放列表！
-app_description: 5分钟定制学习片段生成器
-app_title: 学习版Spotify
-converting_to_audio: 正在转换为音频
-create_custom_playlist: 创建自定义播放列表
-create_playlist_tab: 创建播放列表
-discover_new_topics: 发现新主题
-discover_tab: 发现
-download: 下载
-duration_per_topic: 每个主题的时长（分钟）：
-enter_at_least_one_topic: 请至少输入一个主题。
-enter_topics: 输入您想学习的主题（每行一个）：
-estimated_total_duration: 估计总时长
-generate_playlist: 生成我的播放列表
-generating_custom_playlist: 正在生成您的自定义播放列表...
-generating_snippet: 正在生成片段
-language: 语言
-minutes: 分钟
-my_learning_library: 我的学习库
-my_library_tab: 我的库
-no_playlist_yet: 您尚未创建播放列表。前往"创建播放列表"选项卡开始。
-playlist_generated_success: 播放列表生成成功！
-select_language: 选择语言
-topics_example: '示例：
-
-  - 法国大革命的历史
-
-  - 光合作用的原理
-
-  - 密码学基础
-
-  ...'
-view_text_content: 查看文本内容
-you_might_also_like: 您可能还对以下内容感兴趣：
-your_learning_playlist: 您的学习播放列表
+app_title: Mindsnacks
+dark: Dark
+discover: Discover
+discover_new_topics: Discover New Topics
+error: Error
+explore_and_expand: Explore and expand your knowledge
+generate: Generate
+language: Language
+library: Library
+light: Light
+loading: Loading...
+profile: Profile
+quiz: Quiz
+settings: Settings
+success: Success
+theme: Theme
+welcome: Welcome to Mindsnacks

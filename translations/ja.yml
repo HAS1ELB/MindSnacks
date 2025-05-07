@@ -1,37 +1,17 @@
-add: 追加
-add_to_list: リストに追加
-added_to_playlist: プレイリストに追加されました！
-app_description: 5分間のカスタマイズされた学習スニペットジェネレータ
-app_title: 学習のためのSpotify
-converting_to_audio: 音声に変換中
-create_custom_playlist: カスタムプレイリストを作成
-create_playlist_tab: プレイリストを作成
-discover_new_topics: 新しいトピックを発見
-discover_tab: 発見
-download: ダウンロード
-duration_per_topic: 'トピックあたりの時間（分）:'
-enter_at_least_one_topic: 少なくとも1つのトピックを入力してください。
-enter_topics: '学習したいトピックを入力してください（1行に1つ）:'
-estimated_total_duration: 推定合計時間
-generate_playlist: プレイリストを生成
-generating_custom_playlist: カスタムプレイリストを生成中...
-generating_snippet: スニペットを生成中
-language: 言語
-minutes: 分
-my_learning_library: 学習ライブラリ
-my_library_tab: マイライブラリ
-no_playlist_yet: まだプレイリストを作成していません。「プレイリストを作成」タブに移動して開始してください。
-playlist_generated_success: プレイリストが正常に生成されました！
-select_language: 言語を選択
-topics_example: '例:
-
-  - フランス革命の歴史
-
-  - 光合成のしくみ
-
-  - 暗号化の基礎
-
-  ...'
-view_text_content: テキスト内容を表示
-you_might_also_like: 'こちらにも興味があるかもしれません:'
-your_learning_playlist: 学習プレイリスト
+app_title: Mindsnacks
+dark: Dark
+discover: Discover
+discover_new_topics: Discover New Topics
+error: Error
+explore_and_expand: Explore and expand your knowledge
+generate: Generate
+language: Language
+library: Library
+light: Light
+loading: Loading...
+profile: Profile
+quiz: Quiz
+settings: Settings
+success: Success
+theme: Theme
+welcome: Welcome to Mindsnacks

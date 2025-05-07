@@ -1,38 +1,197 @@
-add: Add
-add_to_list: Add to my list
-added_to_playlist: added to your playlist!
-app_description: Generator of 5-minute customized learning snippets
-app_title: Spotify for Learning
-converting_to_audio: Converting to audio for
-create_custom_playlist: Create Your Custom Playlist
-create_playlist_tab: Create Playlist
-discover_new_topics: Discover New Topics
-discover_tab: Discover
-download: Download
-duration_per_topic: 'Duration per topic (minutes):'
-enter_at_least_one_topic: Please enter at least one topic.
-enter_topics: 'Enter the topics you want to learn about (one per line):'
-estimated_total_duration: Estimated total duration
-generate_playlist: Generate my Playlist
-generating_custom_playlist: Generating your custom playlist...
-generating_snippet: Generating snippet for
-language: Language
-minutes: minutes
-my_learning_library: My Learning Library
-my_library_tab: My Library
-no_playlist_yet: You haven't created a playlist yet. Go to the 'Create Playlist' tab
-  to get started.
-playlist_generated_success: Playlist generated successfully!
-select_language: Select a language
-topics_example: 'Example:
+app_title: "Mindsnacks: Spotify for Learning"
+welcome: "Welcome to Mindsnacks"
+welcome_subtitle: "The audio learning platform for curious minds"
+get_started: "Get Started"
+login: "Log In"
+signup: "Sign Up"
+logout: "Log Out"
+profile: "Profile"
+settings: "Settings"
 
-  - History of the French Revolution
+# Navigation
+home: "Home"
+discover: "Discover"
+library: "Library"
+quiz: "Quiz"
+create: "Create"
+analytics: "Analytics"
 
-  - How photosynthesis works
+# Discover Page
+discover_new_topics: "Discover New Topics"
+explore_and_expand: "Explore and expand your knowledge"
+trending_now: "Trending Now"
+trending_description: "Hot topics that learners are exploring right now"
+add_trending_topics: "Add Trending Topics"
+select_topics: "Select topics"
+add_selected: "Add Selected"
+generating_snippets: "Generating snippets..."
+preview: "Preview"
+add_all: "Add All"
+interactive_explorer: "Interactive Explorer"
+explorer_description: "Start with a topic you're interested in and explore related concepts"
+enter_topic: "Enter a topic you're curious about"
+explore: "Explore"
+related_topics: "Related Topics"
+exploration_history: "Exploration History"
+jump_back: "Jump Back"
+learn_more: "Learn More"
+learning_paths: "Learning Paths"
+learning_paths_description: "Follow curated paths to master a subject step by step"
+start_path: "Start Path"
+preparing_path: "Preparing your learning path..."
+path_started: "Your learning path has begun! Head to the Library to continue."
+explore_this: "Explore This"
+add_to_playlist: "Add to Playlist"
+add: "Add"
+generating_snippet: "Generating snippet..."
+added_to_playlist: "added to your playlist"
 
-  - Basics of cryptography
+# Library Page
+your_library: "Your Library"
+current_playlist: "Current Playlist"
+saved_playlists: "Saved Playlists"
+history: "History"
+no_snippets: "No snippets in your playlist yet"
+discover_snippets: "Discover Snippets"
+now_playing: "Now Playing"
+playlist_empty: "Your playlist is empty"
+clear_playlist: "Clear Playlist"
+save_playlist: "Save Playlist"
+playlist_name: "Playlist Name"
+save: "Save"
+playlist_saved: "Playlist saved successfully"
+delete_playlist: "Delete Playlist"
+confirm_delete: "Are you sure you want to delete this playlist?"
+yes_delete: "Yes, Delete"
+cancel: "Cancel"
+play_all: "Play All"
+export_playlist: "Export Playlist"
+shuffle: "Shuffle"
+share: "Share"
+new_playlist: "New Playlist"
+snippet_details: "Snippet Details"
+take_quiz: "Take Quiz"
 
-  ...'
-view_text_content: View text content
-you_might_also_like: 'You might also be interested in:'
-your_learning_playlist: Your Learning Playlist
+# Quiz Page
+quiz_title: "Test Your Knowledge"
+quiz_subtitle: "Challenge yourself on topics you've learned"
+generate_quiz: "Generate Quiz"
+choose_topic: "Choose Topic"
+quiz_difficulty: "Difficulty"
+easy: "Easy"
+medium: "Medium"
+hard: "Hard"
+num_questions: "Number of Questions"
+start_quiz: "Start Quiz"
+quiz_loading: "Preparing your quiz..."
+question: "Question"
+of: "of"
+submit_answer: "Submit Answer"
+next_question: "Next Question"
+previous_question: "Previous Question"
+skip: "Skip"
+quiz_results: "Quiz Results"
+correct_answers: "Correct Answers"
+your_score: "Your Score"
+restart_quiz: "Try Again"
+review_answers: "Review Answers"
+explanation: "Explanation"
+your_answer: "Your Answer"
+correct_answer: "Correct Answer"
+time_taken: "Time Taken"
+create_new_quiz: "Create New Quiz"
+share_results: "Share Results"
+
+# Create Page
+create_title: "Create Learning Content"
+create_subtitle: "Generate custom learning snippets on any topic"
+enter_topic_create: "What topic would you like to learn about?"
+content_length: "Content Length"
+short: "Short"
+standard: "Standard"
+detailed: "Detailed"
+content_language: "Language"
+voice_options: "Voice Options"
+generate_content: "Generate Content"
+regenerate: "Regenerate"
+save_to_library: "Save to Library"
+generating_content: "Generating content..."
+generating_audio: "Generating audio..."
+edit_content: "Edit Content"
+preview_audio: "Preview Audio"
+content_saved: "Content saved to library"
+
+# Settings Page
+settings_title: "Settings"
+app_settings: "App Settings"
+language_settings: "Language"
+theme: "Theme"
+dark_mode: "Dark Mode"
+light_mode: "Light Mode"
+audio_settings: "Audio Settings"
+voice_selection: "Default Voice"
+playback_speed: "Default Playback Speed"
+quality: "Audio Quality"
+high: "High"
+medium: "Medium"
+low: "Low"
+storage: "Storage"
+clear_cache: "Clear Cache"
+app_info: "App Information"
+version: "Version"
+about: "About"
+help: "Help"
+feedback: "Send Feedback"
+save_settings: "Save Settings"
+settings_saved: "Settings saved successfully"
+
+# Profile Page
+profile_title: "Your Profile"
+learning_stats: "Learning Stats"
+topics_explored: "Topics Explored"
+snippets_created: "Snippets Created"
+listening_time: "Total Listening Time"
+quizzes_taken: "Quizzes Taken"
+avg_score: "Average Quiz Score"
+achievements: "Achievements"
+learning_streak: "Learning Streak"
+days: "days"
+export_data: "Export Your Data"
+delete_account: "Delete Account"
+edit_profile: "Edit Profile"
+account_settings: "Account Settings"
+
+# Error Messages
+error_generate: "Error generating content. Please try again."
+error_audio: "Error generating audio. Please try again."
+error_connection: "Connection error. Please check your internet connection."
+error_save: "Error saving data. Please try again."
+
+# Success Messages
+success_save: "Successfully saved!"
+success_export: "Successfully exported!"
+success_updated: "Successfully updated!"
+
+# Common Actions
+play: "Play"
+pause: "Pause"
+stop: "Stop"
+resume: "Resume"
+refresh: "Refresh"
+delete: "Delete"
+edit: "Edit"
+done: "Done"
+loading: "Loading..."
+
+# Misc
+share_snippet: "Share this snippet"
+copied_to_clipboard: "Copied to clipboard"
+see_more: "See More"
+see_less: "See Less"
+search: "Search"
+filter: "Filter"
+sort_by: "Sort By"
+date_added: "Date Added"
+alphabetical: "Alphabetical"
+duration: "Duration"
+popular: "Popular"

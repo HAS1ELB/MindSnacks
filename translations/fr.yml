@@ -1,38 +1,197 @@
-add: Ajouter
-add_to_list: Ajouter à ma liste
-added_to_playlist: ajouté à votre playlist!
-app_description: Générateur de snippets d'apprentissage personnalisés de 5 minutes
-app_title: Spotify pour l'Apprentissage
-converting_to_audio: Conversion en audio pour
-create_custom_playlist: Créer votre Playlist Personnalisée
-create_playlist_tab: Créer une Playlist
-discover_new_topics: Découvrir de Nouveaux Sujets
-discover_tab: Découvrir
-download: Télécharger
-duration_per_topic: 'Durée par sujet (minutes):'
-enter_at_least_one_topic: Veuillez entrer au moins un sujet.
-enter_topics: 'Entrez les sujets que vous souhaitez apprendre (un par ligne):'
-estimated_total_duration: Durée totale estimée
-generate_playlist: Générer ma Playlist
-generating_custom_playlist: Génération de votre playlist personnalisée...
-generating_snippet: Génération du snippet
-language: Langue
-minutes: minutes
-my_learning_library: Ma Bibliothèque d'Apprentissage
-my_library_tab: Ma Bibliothèque
-no_playlist_yet: Vous n'avez pas encore créé de playlist. Allez dans l'onglet 'Créer
-  une Playlist' pour commencer.
-playlist_generated_success: Playlist générée avec succès!
-select_language: Sélectionner une langue
-topics_example: 'Exemple:
+app_title: "Mindsnacks: Spotify pour l'Apprentissage"
+welcome: "Bienvenue sur Mindsnacks"
+welcome_subtitle: "La plateforme d'apprentissage audio pour les esprits curieux"
+get_started: "Commencer"
+login: "Se Connecter"
+signup: "S'inscrire"
+logout: "Se Déconnecter"
+profile: "Profil"
+settings: "Paramètres"
 
-  - L''histoire de la Révolution française
+# Navigation
+home: "Accueil"
+discover: "Découvrir"
+library: "Bibliothèque"
+quiz: "Quiz"
+create: "Créer"
+analytics: "Analytiques"
 
-  - Comment fonctionne la photosynthèse
+# Discover Page
+discover_new_topics: "Découvrir de Nouveaux Sujets"
+explore_and_expand: "Explorez et élargissez vos connaissances"
+trending_now: "Tendances Actuelles"
+trending_description: "Sujets populaires que les apprenants explorent actuellement"
+add_trending_topics: "Ajouter des Sujets Tendance"
+select_topics: "Sélectionner des sujets"
+add_selected: "Ajouter la Sélection"
+generating_snippets: "Génération d'extraits en cours..."
+preview: "Aperçu"
+add_all: "Tout Ajouter"
+interactive_explorer: "Explorateur Interactif"
+explorer_description: "Commencez par un sujet qui vous intéresse et explorez des concepts connexes"
+enter_topic: "Entrez un sujet qui vous intéresse"
+explore: "Explorer"
+related_topics: "Sujets Connexes"
+exploration_history: "Historique d'Exploration"
+jump_back: "Revenir"
+learn_more: "En Savoir Plus"
+learning_paths: "Parcours d'Apprentissage"
+learning_paths_description: "Suivez des parcours organisés pour maîtriser un sujet pas à pas"
+start_path: "Commencer le Parcours"
+preparing_path: "Préparation de votre parcours d'apprentissage..."
+path_started: "Votre parcours d'apprentissage a commencé ! Rendez-vous dans la Bibliothèque pour continuer."
+explore_this: "Explorer Ce Sujet"
+add_to_playlist: "Ajouter à la Playlist"
+add: "Ajouter"
+generating_snippet: "Génération d'extrait en cours..."
+added_to_playlist: "ajouté à votre playlist"
 
-  - Les bases de la cryptographie
+# Library Page
+your_library: "Votre Bibliothèque"
+current_playlist: "Playlist Actuelle"
+saved_playlists: "Playlists Enregistrées"
+history: "Historique"
+no_snippets: "Pas encore d'extraits dans votre playlist"
+discover_snippets: "Découvrir des Extraits"
+now_playing: "En Lecture"
+playlist_empty: "Votre playlist est vide"
+clear_playlist: "Vider la Playlist"
+save_playlist: "Enregistrer la Playlist"
+playlist_name: "Nom de la Playlist"
+save: "Enregistrer"
+playlist_saved: "Playlist enregistrée avec succès"
+delete_playlist: "Supprimer la Playlist"
+confirm_delete: "Êtes-vous sûr de vouloir supprimer cette playlist ?"
+yes_delete: "Oui, Supprimer"
+cancel: "Annuler"
+play_all: "Tout Lire"
+export_playlist: "Exporter la Playlist"
+shuffle: "Mélanger"
+share: "Partager"
+new_playlist: "Nouvelle Playlist"
+snippet_details: "Détails de l'Extrait"
+take_quiz: "Faire le Quiz"
 
-  ...'
-view_text_content: Voir le contenu textuel
-you_might_also_like: 'Vous pourriez aussi être intéressé par:'
-your_learning_playlist: Votre Playlist d'Apprentissage
+# Quiz Page
+quiz_title: "Testez Vos Connaissances"
+quiz_subtitle: "Mettez-vous au défi sur les sujets que vous avez appris"
+generate_quiz: "Générer un Quiz"
+choose_topic: "Choisir un Sujet"
+quiz_difficulty: "Difficulté"
+easy: "Facile"
+medium: "Moyen"
+hard: "Difficile"
+num_questions: "Nombre de Questions"
+start_quiz: "Commencer le Quiz"
+quiz_loading: "Préparation de votre quiz..."
+question: "Question"
+of: "sur"
+submit_answer: "Soumettre la Réponse"
+next_question: "Question Suivante"
+previous_question: "Question Précédente"
+skip: "Passer"
+quiz_results: "Résultats du Quiz"
+correct_answers: "Réponses Correctes"
+your_score: "Votre Score"
+restart_quiz: "Réessayer"
+review_answers: "Revoir les Réponses"
+explanation: "Explication"
+your_answer: "Votre Réponse"
+correct_answer: "Réponse Correcte"
+time_taken: "Temps Passé"
+create_new_quiz: "Créer un Nouveau Quiz"
+share_results: "Partager les Résultats"
+
+# Create Page
+create_title: "Créer du Contenu d'Apprentissage"
+create_subtitle: "Générer des extraits d'apprentissage personnalisés sur n'importe quel sujet"
+enter_topic_create: "Sur quel sujet souhaitez-vous apprendre ?"
+content_length: "Longueur du Contenu"
+short: "Court"
+standard: "Standard"
+detailed: "Détaillé"
+content_language: "Langue"
+voice_options: "Options de Voix"
+generate_content: "Générer le Contenu"
+regenerate: "Régénérer"
+save_to_library: "Enregistrer dans la Bibliothèque"
+generating_content: "Génération du contenu..."
+generating_audio: "Génération de l'audio..."
+edit_content: "Modifier le Contenu"
+preview_audio: "Prévisualiser l'Audio"
+content_saved: "Contenu enregistré dans la bibliothèque"
+
+# Settings Page
+settings_title: "Paramètres"
+app_settings: "Paramètres de l'Application"
+language_settings: "Langue"
+theme: "Thème"
+dark_mode: "Mode Sombre"
+light_mode: "Mode Clair"
+audio_settings: "Paramètres Audio"
+voice_selection: "Voix par Défaut"
+playback_speed: "Vitesse de Lecture par Défaut"
+quality: "Qualité Audio"
+high: "Haute"
+medium: "Moyenne"
+low: "Basse"
+storage: "Stockage"
+clear_cache: "Vider le Cache"
+app_info: "Informations sur l'Application"
+version: "Version"
+about: "À Propos"
+help: "Aide"
+feedback: "Envoyer des Commentaires"
+save_settings: "Enregistrer les Paramètres"
+settings_saved: "Paramètres enregistrés avec succès"
+
+# Profile Page
+profile_title: "Votre Profil"
+learning_stats: "Statistiques d'Apprentissage"
+topics_explored: "Sujets Explorés"
+snippets_created: "Extraits Créés"
+listening_time: "Temps d'Écoute Total"
+quizzes_taken: "Quiz Réalisés"
+avg_score: "Score Moyen aux Quiz"
+achievements: "Réalisations"
+learning_streak: "Série d'Apprentissage"
+days: "jours"
+export_data: "Exporter Vos Données"
+delete_account: "Supprimer le Compte"
+edit_profile: "Modifier le Profil"
+account_settings: "Paramètres du Compte"
+
+# Error Messages
+error_generate: "Erreur lors de la génération du contenu. Veuillez réessayer."
+error_audio: "Erreur lors de la génération de l'audio. Veuillez réessayer."
+error_connection: "Erreur de connexion. Veuillez vérifier votre connexion internet."
+error_save: "Erreur lors de l'enregistrement des données. Veuillez réessayer."
+
+# Success Messages
+success_save: "Enregistré avec succès !"
+success_export: "Exporté avec succès !"
+success_updated: "Mis à jour avec succès !"
+
+# Common Actions
+play: "Lire"
+pause: "Pause"
+stop: "Arrêter"
+resume: "Reprendre"
+refresh: "Actualiser"
+delete: "Supprimer"
+edit: "Modifier"
+done: "Terminé"
+loading: "Chargement..."
+
+# Misc
+share_snippet: "Partager cet extrait"
+copied_to_clipboard: "Copié dans le presse-papiers"
+see_more: "Voir Plus"
+see_less: "Voir Moins"
+search: "Rechercher"
+filter: "Filtrer"
+sort_by: "Trier Par"
+date_added: "Date d'Ajout"
+alphabetical: "Ordre Alphabétique"
+duration: "Durée"
+popular: "Populaire"

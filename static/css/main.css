@@ -1,0 +1,172 @@
+/* Common CSS for both themes */
+.stApp {
+    font-family: 'Roboto', sans-serif;
+}
+
+.stButton button {
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-weight: 500;
+}
+
+.sidebar .sidebar-content {
+    padding: 1rem;
+}
+
+/* Logo styling */
+.app-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.app-logo img {
+    max-width: 150px;
+}
+
+/* Colored header */
+.colored-header {
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Audio player styling */
+.audio-player {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.waveform-container {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Topic card grid */
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.topic-card {
+    background-color: #282828;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #1DB954;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.topic-card h3 {
+    margin-top: 0;
+}
+
+/* Notification styles */
+.notification {
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.notification.info {
+    background-color: #2196f3;
+    color: white;
+}
+
+.notification.success {
+    background-color: #1DB954;
+    color: white;
+}
+
+.notification.warning {
+    background-color: #ff9800;
+    color: white;
+}
+
+.notification.error {
+    background-color: #f44336;
+    color: white;
+}
+
+.notification .close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+}
+
+/* Quiz styles */
+.quiz-card {
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.quiz-option {
+    padding: 0.8rem;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quiz-option:hover {
+    background-color: rgba(29, 185, 84, 0.1);
+}
+
+.quiz-option.selected {
+    background-color: rgba(29, 185, 84, 0.2);
+    border-left: 3px solid #1DB954;
+}
+
+/* Achievement styles */
+.achievement-card {
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.achievement-points {
+    background-color: #1DB954;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(29, 185, 84, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(29, 185, 84, 0.7);
+}

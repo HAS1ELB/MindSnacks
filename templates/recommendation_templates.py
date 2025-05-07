@@ -1,315 +1,425 @@
-def get_trending_topics(language='fr'):
-    """
-    Renvoie une liste de sujets tendance pour les utilisateurs sans historique.
-    Adapté pour supporter plusieurs langues.
-    """
-    topics = {
-        'fr': [
-            "L'impact de l'IA sur le marché du travail",
-            "Les découvertes récentes sur Mars",
-            "Comment fonctionne la blockchain",
-            "L'histoire des pandémies à travers les siècles",
-            "Le cerveau et l'apprentissage",
-            "Les océans et le changement climatique",
-            "La psychologie des habitudes",
-            "Les plus grandes découvertes scientifiques de la dernière décennie"
-        ],
-        'en': [
-            "The impact of AI on the job market",
-            "Recent discoveries on Mars",
-            "How blockchain works",
-            "The history of pandemics through the centuries",
-            "The brain and learning",
-            "Oceans and climate change",
-            "Psychology of habits",
-            "The greatest scientific discoveries of the last decade"
-        ],
-        'es': [
-            "El impacto de la IA en el mercado laboral",
-            "Descubrimientos recientes en Marte",
-            "Cómo funciona la blockchain",
-            "La historia de las pandemias a través de los siglos",
-            "El cerebro y el aprendizaje",
-            "Los océanos y el cambio climático",
-            "La psicología de los hábitos",
-            "Los mayores descubrimientos científicos de la última década"
-        ],
-        'de': [
-            "Die Auswirkungen der KI auf den Arbeitsmarkt",
-            "Neueste Entdeckungen auf dem Mars",
-            "Wie Blockchain funktioniert",
-            "Die Geschichte der Pandemien durch die Jahrhunderte",
-            "Das Gehirn und das Lernen",
-            "Ozeane und Klimawandel",
-            "Psychologie der Gewohnheiten",
-            "Die größten wissenschaftlichen Entdeckungen des letzten Jahrzehnts"
-        ],
-        'it': [
-            "L'impatto dell'IA sul mercato del lavoro",
-            "Scoperte recenti su Marte",
-            "Come funziona la blockchain",
-            "La storia delle pandemie attraverso i secoli",
-            "Il cervello e l'apprendimento",
-            "Gli oceani e il cambiamento climatico",
-            "La psicologia delle abitudini",
-            "Le più grandi scoperte scientifiche dell'ultimo decennio"
-        ],
-        'ja': [
-            "AI（人工知能）の労働市場への影響",
-            "火星での最近の発見",
-            "ブロックチェーンの仕組み",
-            "世紀を通じたパンデミックの歴史",
-            "脳と学習",
-            "海洋と気候変動",
-            "習慣の心理学",
-            "過去10年間の最も偉大な科学的発見"
-        ],
-        'zh': [
-            "人工智能对就业市场的影响",
-            "火星上的最新发现",
-            "区块链是如何运作的",
-            "几个世纪以来的流行病历史",
-            "大脑与学习",
-            "海洋与气候变化",
-            "习惯心理学",
-            "过去十年最重大的科学发现"
-        ],
-        'ar': [
-            "تأثير الذكاء الاصطناعي على سوق العمل",
-            "الاكتشافات الأخيرة على المريخ",
-            "كيفية عمل تقنية البلوكتشين",
-            "تاريخ الأوبئة عبر القرون",
-            "الدماغ والتعلم",
-            "المحيطات وتغير المناخ",
-            "علم نفس العادات",
-            "أعظم الاكتشافات العلمية في العقد الأخير"
-        ]
-    }
-    
-    return topics.get(language, topics['en'])
+from typing import Dict, List, Any
+import random
 
-def get_topic_categories(language='fr'):
+def get_topic_categories(language: str = 'en') -> Dict[str, List[str]]:
     """
-    Renvoie des catégories de sujets pour aider les utilisateurs à choisir.
-    Adapté pour supporter plusieurs langues.
+    Get topic categories with examples
+    
+    Args:
+        language (str): Language code
+        
+    Returns:
+        dict: Dictionary of categories and topics
     """
     categories = {
-        'fr': {
-            "Science": [
-                "Trous noirs et gravité quantique",
-                "CRISPR et modification génétique",
-                "Neurosciences et conscience"
-            ],
-            "Histoire": [
-                "La chute de l'Empire romain",
-                "La route de la soie",
-                "L'âge d'or islamique"
-            ],
-            "Technologie": [
-                "L'évolution de l'intelligence artificielle",
-                "Informatique quantique expliquée",
-                "L'avenir de l'Internet"
-            ],
-            "Arts & Culture": [
-                "L'histoire du jazz",
-                "L'expressionnisme dans l'art",
-                "L'évolution du cinéma"
-            ],
-            "Santé & Bien-être": [
-                "La science du sommeil",
-                "Alimentation et longévité",
-                "Méditation et cerveau"
-            ]
-        },
         'en': {
             "Science": [
-                "Black holes and quantum gravity",
-                "CRISPR and genetic modification",
-                "Neuroscience and consciousness"
+                "Quantum Computing Basics",
+                "Climate Change Causes and Effects",
+                "The Human Microbiome",
+                "Astronomy: Exoplanets and Alien Life",
+                "Neuroscience and Memory Formation",
+                "CRISPR Gene Editing Technology",
+                "Theories of Biological Evolution",
+                "The Physics of Black Holes",
+                "Renewable Energy Solutions",
+                "Marine Biology and Ocean Conservation"
             ],
             "History": [
-                "The fall of the Roman Empire",
-                "The Silk Road",
-                "The Islamic Golden Age"
+                "Ancient Egyptian Civilization",
+                "The Renaissance Period",
+                "World War II Major Turning Points",
+                "The Rise and Fall of the Roman Empire",
+                "Industrial Revolution and Its Impact",
+                "History of Human Rights Movements",
+                "Ancient Chinese Dynasties",
+                "The Cold War Era",
+                "Indigenous Peoples' Histories",
+                "The Space Race"
             ],
             "Technology": [
-                "The evolution of artificial intelligence",
-                "Quantum computing explained",
-                "The future of the Internet"
+                "Artificial Intelligence Ethics",
+                "Blockchain Beyond Cryptocurrency",
+                "Internet of Things Applications",
+                "5G Technology and Its Impact",
+                "Virtual and Augmented Reality",
+                "Cybersecurity Fundamentals",
+                "Machine Learning Algorithms",
+                "Cloud Computing Architecture",
+                "Robotics and Automation",
+                "Digital Privacy in the Modern Age"
             ],
             "Arts & Culture": [
-                "The history of jazz",
-                "Expressionism in art",
-                "The evolution of cinema"
+                "Contemporary Art Movements",
+                "Classical Music Appreciation",
+                "Film Theory and Analysis",
+                "World Literature Masterpieces",
+                "Architecture Through the Ages",
+                "Indigenous Art Forms",
+                "The History of Photography",
+                "Dance Styles Around the World",
+                "Theater and Dramatic Arts",
+                "Fashion as Cultural Expression"
             ],
             "Health & Wellness": [
-                "The science of sleep",
-                "Nutrition and longevity",
-                "Meditation and the brain"
+                "Nutrition Science Fundamentals",
+                "Mindfulness and Meditation",
+                "Exercise Physiology",
+                "Sleep Science and Optimization",
+                "Mental Health Awareness",
+                "Preventive Healthcare Practices",
+                "Alternative Medicine Approaches",
+                "The Science of Aging",
+                "Stress Management Techniques",
+                "Immune System Function"
+            ],
+            "Environment & Sustainability": [
+                "Sustainable Urban Planning",
+                "Biodiversity Conservation",
+                "Circular Economy Models",
+                "Water Resource Management",
+                "Sustainable Agriculture Practices",
+                "Plastic Pollution Solutions",
+                "Climate Resilience Strategies",
+                "Renewable Energy Transitions",
+                "Forest Ecosystem Services",
+                "Carbon Footprint Reduction"
+            ],
+            "Psychology & Behavior": [
+                "Cognitive Biases and Decision Making",
+                "The Psychology of Happiness",
+                "Child Development Stages",
+                "Behavioral Economics",
+                "Social Psychology Experiments",
+                "Personality Theories",
+                "The Science of Habit Formation",
+                "Emotional Intelligence",
+                "Cross-Cultural Psychology",
+                "The Neuroscience of Addiction"
+            ],
+            "Business & Economics": [
+                "Fundamentals of Investing",
+                "Entrepreneurship Basics",
+                "Global Economic Systems",
+                "Marketing Psychology",
+                "Sustainable Business Models",
+                "Principles of Management",
+                "Financial Literacy Essentials",
+                "Economic Inequality Causes",
+                "Digital Economy Transformations",
+                "Supply Chain Management"
+            ],
+            "Philosophy & Ethics": [
+                "Introduction to Moral Philosophy",
+                "Eastern Philosophical Traditions",
+                "Ethics in the Digital Age",
+                "Existentialism and Meaning",
+                "Philosophy of Mind",
+                "Political Philosophy",
+                "The Ethics of Artificial Intelligence",
+                "Ancient Greek Philosophers",
+                "Free Will and Determinism",
+                "Contemporary Ethical Dilemmas"
+            ],
+            "Language & Communication": [
+                "The Evolution of Human Language",
+                "Effective Public Speaking",
+                "Nonverbal Communication",
+                "Language Learning Strategies",
+                "Writing and Storytelling Techniques",
+                "Digital Communication Skills",
+                "Linguistic Diversity",
+                "The Art of Negotiation",
+                "Intercultural Communication",
+                "Media Literacy"
+            ]
+        },
+        'fr': {
+            "Science": [
+                "Bases de l'informatique quantique",
+                "Causes et effets du changement climatique",
+                "Le microbiome humain",
+                "Astronomie : Exoplanètes et vie extraterrestre",
+                "Neurosciences et formation de la mémoire",
+                "Technologie d'édition génétique CRISPR",
+                "Théories de l'évolution biologique",
+                "La physique des trous noirs",
+                "Solutions d'énergie renouvelable",
+                "Biologie marine et conservation des océans"
+            ],
+            "Histoire": [
+                "La civilisation de l'Égypte ancienne",
+                "La période de la Renaissance",
+                "Les tournants majeurs de la Seconde Guerre mondiale",
+                "L'ascension et la chute de l'Empire romain",
+                "La Révolution industrielle et son impact",
+                "Histoire des mouvements des droits humains",
+                "Les dynasties chinoises anciennes",
+                "L'ère de la Guerre froide",
+                "Histoires des peuples autochtones",
+                "La course à l'espace"
+            ],
+            "Technologie": [
+                "Éthique de l'intelligence artificielle",
+                "La blockchain au-delà de la cryptomonnaie",
+                "Applications de l'Internet des objets",
+                "La technologie 5G et son impact",
+                "Réalité virtuelle et augmentée",
+                "Fondamentaux de la cybersécurité",
+                "Algorithmes d'apprentissage automatique",
+                "Architecture de l'informatique en nuage",
+                "Robotique et automatisation",
+                "La vie privée numérique à l'ère moderne"
+            ],
+            "Arts et Culture": [
+                "Mouvements d'art contemporain",
+                "Appréciation de la musique classique",
+                "Théorie et analyse cinématographique",
+                "Chefs-d'œuvre de la littérature mondiale",
+                "L'architecture à travers les âges",
+                "Formes d'art autochtones",
+                "L'histoire de la photographie",
+                "Styles de danse à travers le monde",
+                "Théâtre et arts dramatiques",
+                "La mode comme expression culturelle"
+            ],
+            "Santé et Bien-être": [
+                "Fondamentaux de la science de la nutrition",
+                "Pleine conscience et méditation",
+                "Physiologie de l'exercice",
+                "Science du sommeil et optimisation",
+                "Sensibilisation à la santé mentale",
+                "Pratiques de soins préventifs",
+                "Approches de médecine alternative",
+                "La science du vieillissement",
+                "Techniques de gestion du stress",
+                "Fonction du système immunitaire"
             ]
         },
         'es': {
             "Ciencia": [
-                "Agujeros negros y gravedad cuántica",
-                "CRISPR y modificación genética",
-                "Neurociencia y conciencia"
+                "Fundamentos de la computación cuántica",
+                "Causas y efectos del cambio climático",
+                "El microbioma humano",
+                "Astronomía: Exoplanetas y vida alienígena",
+                "Neurociencia y formación de la memoria",
+                "Tecnología de edición genética CRISPR",
+                "Teorías de la evolución biológica",
+                "La física de los agujeros negros",
+                "Soluciones de energía renovable",
+                "Biología marina y conservación oceánica"
             ],
             "Historia": [
-                "La caída del Imperio Romano",
-                "La Ruta de la Seda",
-                "La Edad de Oro islámica"
+                "La civilización del antiguo Egipto",
+                "El período del Renacimiento",
+                "Puntos de inflexión de la Segunda Guerra Mundial",
+                "El auge y caída del Imperio Romano",
+                "La Revolución Industrial y su impacto",
+                "Historia de los movimientos de derechos humanos",
+                "Dinastías chinas antiguas",
+                "La era de la Guerra Fría",
+                "Historias de los pueblos indígenas",
+                "La carrera espacial"
             ],
             "Tecnología": [
-                "La evolución de la inteligencia artificial",
-                "Computación cuántica explicada",
-                "El futuro de Internet"
-            ],
-            "Arte y Cultura": [
-                "La historia del jazz",
-                "El expresionismo en el arte",
-                "La evolución del cine"
-            ],
-            "Salud y Bienestar": [
-                "La ciencia del sueño",
-                "Alimentación y longevidad",
-                "Meditación y cerebro"
-            ]
-        },
-        'de': {
-            "Wissenschaft": [
-                "Schwarze Löcher und Quantengravitation",
-                "CRISPR und genetische Modifikation",
-                "Neurowissenschaft und Bewusstsein"
-            ],
-            "Geschichte": [
-                "Der Fall des Römischen Reiches",
-                "Die Seidenstraße",
-                "Das Islamische Goldene Zeitalter"
-            ],
-            "Technologie": [
-                "Die Evolution der künstlichen Intelligenz",
-                "Quantencomputer erklärt",
-                "Die Zukunft des Internets"
-            ],
-            "Kunst & Kultur": [
-                "Die Geschichte des Jazz",
-                "Expressionismus in der Kunst",
-                "Die Evolution des Kinos"
-            ],
-            "Gesundheit & Wohlbefinden": [
-                "Die Wissenschaft des Schlafs",
-                "Ernährung und Langlebigkeit",
-                "Meditation und das Gehirn"
-            ]
-        },
-        'it': {
-            "Scienza": [
-                "Buchi neri e gravità quantistica",
-                "CRISPR e modificazione genetica",
-                "Neuroscienze e coscienza"
-            ],
-            "Storia": [
-                "La caduta dell'Impero Romano",
-                "La Via della Seta",
-                "L'Età d'Oro islamica"
-            ],
-            "Tecnologia": [
-                "L'evoluzione dell'intelligenza artificiale",
-                "Il computing quantistico spiegato",
-                "Il futuro di Internet"
-            ],
-            "Arte e Cultura": [
-                "La storia del jazz",
-                "L'espressionismo nell'arte",
-                "L'evoluzione del cinema"
-            ],
-            "Salute e Benessere": [
-                "La scienza del sonno",
-                "Alimentazione e longevità",
-                "Meditazione e cervello"
-            ]
-        },
-        'ja': {
-            "科学": [
-                "ブラックホールと量子重力",
-                "CRISPRと遺伝子改変",
-                "神経科学と意識"
-            ],
-            "歴史": [
-                "ローマ帝国の崩壊",
-                "シルクロード",
-                "イスラムの黄金時代"
-            ],
-            "テクノロジー": [
-                "人工知能の進化",
-                "量子コンピューティングの解説",
-                "インターネットの未来"
-            ],
-            "芸術と文化": [
-                "ジャズの歴史",
-                "芸術における表現主義",
-                "映画の進化"
-            ],
-            "健康とウェルネス": [
-                "睡眠の科学",
-                "栄養と長寿",
-                "瞑想と脳"
-            ]
-        },
-        'zh': {
-            "科学": [
-                "黑洞和量子引力",
-                "CRISPR和基因修改",
-                "神经科学与意识"
-            ],
-            "历史": [
-                "罗马帝国的衰落",
-                "丝绸之路",
-                "伊斯兰黄金时代"
-            ],
-            "技术": [
-                "人工智能的演变",
-                "量子计算解析",
-                "互联网的未来"
-            ],
-            "艺术与文化": [
-                "爵士乐的历史",
-                "艺术中的表现主义",
-                "电影的演变"
-            ],
-            "健康与福祉": [
-                "睡眠科学",
-                "营养与长寿",
-                "冥想与大脑"
-            ]
-        },
-        'ar': {
-            "العلوم": [
-                "الثقوب السوداء والجاذبية الكمومية",
-                "CRISPR وتعديل الجينات",
-                "علم الأعصاب والوعي"
-            ],
-            "التاريخ": [
-                "سقوط الإمبراطورية الرومانية",
-                "طريق الحرير",
-                "العصر الذهبي الإسلامي"
-            ],
-            "التكنولوجيا": [
-                "تطور الذكاء الاصطناعي",
-                "شرح الحوسبة الكمومية",
-                "مستقبل الإنترنت"
-            ],
-            "الفنون والثقافة": [
-                "تاريخ الجاز",
-                "التعبيرية في الفن",
-                "تطور السينما"
-            ],
-            "الصحة والرفاهية": [
-                "علم النوم",
-                "التغذية وطول العمر",
-                "التأمل والدماغ"
+                "Ética de la inteligencia artificial",
+                "Blockchain más allá de las criptomonedas",
+                "Aplicaciones del Internet de las cosas",
+                "Tecnología 5G y su impacto",
+                "Realidad virtual y aumentada",
+                "Fundamentos de ciberseguridad",
+                "Algoritmos de aprendizaje automático",
+                "Arquitectura de computación en la nube",
+                "Robótica y automatización",
+                "Privacidad digital en la era moderna"
             ]
         }
     }
     
+    # Default to English if language not available
     return categories.get(language, categories['en'])
+
+def get_trending_topics(language: str = 'en') -> List[str]:
+    """
+    Get trending topics
+    
+    Args:
+        language (str): Language code
+        
+    Returns:
+        list: List of trending topics
+    """
+    topics = {
+        'en': [
+            "Artificial Intelligence and Ethics",
+            "Climate Change Solutions",
+            "Mental Health Awareness",
+            "Sustainable Living Practices",
+            "Quantum Computing Applications",
+            "Remote Work Productivity",
+            "Blockchain and Digital Currency",
+            "Space Exploration Advancements",
+            "Immunology and Vaccines",
+            "Financial Independence Strategies",
+            "Renewable Energy Technologies",
+            "Digital Privacy Protection",
+            "Mindfulness and Meditation",
+            "Sustainable Agriculture",
+            "Electric Vehicle Revolution"
+        ],
+        'fr': [
+            "Intelligence artificielle et éthique",
+            "Solutions au changement climatique",
+            "Sensibilisation à la santé mentale",
+            "Pratiques de vie durable",
+            "Applications de l'informatique quantique",
+            "Productivité du travail à distance",
+            "Blockchain et monnaie numérique",
+            "Avancées en exploration spatiale",
+            "Immunologie et vaccins",
+            "Stratégies d'indépendance financière",
+            "Technologies d'énergie renouvelable",
+            "Protection de la vie privée numérique",
+            "Pleine conscience et méditation",
+            "Agriculture durable",
+            "Révolution des véhicules électriques"
+        ],
+        'es': [
+            "Inteligencia artificial y ética",
+            "Soluciones al cambio climático",
+            "Conciencia sobre salud mental",
+            "Prácticas de vida sostenible",
+            "Aplicaciones de la computación cuántica",
+            "Productividad del trabajo remoto",
+            "Blockchain y moneda digital",
+            "Avances en exploración espacial",
+            "Inmunología y vacunas",
+            "Estrategias de independencia financiera",
+            "Tecnologías de energía renovable",
+            "Protección de la privacidad digital",
+            "Mindfulness y meditación",
+            "Agricultura sostenible",
+            "Revolución de los vehículos eléctricos"
+        ]
+    }
+    
+    # Default to English if language not available
+    topic_list = topics.get(language, topics['en'])
+    
+    # Randomize the order for variety
+    random.shuffle(topic_list)
+    
+    return topic_list
+
+def get_curated_playlists(language: str = 'en') -> Dict[str, List[str]]:
+    """
+    Get curated playlists
+    
+    Args:
+        language (str): Language code
+        
+    Returns:
+        dict: Dictionary of playlist names and topics
+    """
+    playlists = {
+        'en': {
+            "Future Technologies": [
+                "Quantum Computing Basics",
+                "Neural Interfaces and Brain-Computer Connections",
+                "Synthetic Biology Applications",
+                "Advanced Robotics and Automation",
+                "Space Colonization Challenges"
+            ],
+            "Personal Development Essentials": [
+                "The Science of Habit Formation",
+                "Effective Time Management Strategies",
+                "Emotional Intelligence Development",
+                "Critical Thinking Skills",
+                "Strategies for Lifelong Learning"
+            ],
+            "Understanding Our World": [
+                "Climate Science Fundamentals",
+                "Global Economic Systems Explained",
+                "Cultural Anthropology Basics",
+                "Modern Geopolitics Overview",
+                "Biodiversity and Conservation"
+            ],
+            "Health and Longevity": [
+                "Nutrition Science Fundamentals",
+                "The Science of Healthy Aging",
+                "Exercise Physiology Basics",
+                "Sleep Science and Optimization",
+                "Stress Management Techniques"
+            ],
+            "Art and Creativity": [
+                "The Psychology of Creativity",
+                "Modern Art Movements",
+                "Music Theory Fundamentals",
+                "Creative Writing Techniques",
+                "Digital Art and Design Basics"
+            ]
+        },
+        'fr': {
+            "Technologies du Futur": [
+                "Bases de l'informatique quantique",
+                "Interfaces neurales et connexions cerveau-ordinateur",
+                "Applications de la biologie synthétique",
+                "Robotique avancée et automatisation",
+                "Défis de la colonisation spatiale"
+            ],
+            "Essentiels du Développement Personnel": [
+                "La science de la formation des habitudes",
+                "Stratégies efficaces de gestion du temps",
+                "Développement de l'intelligence émotionnelle",
+                "Compétences en pensée critique",
+                "Stratégies pour l'apprentissage tout au long de la vie"
+            ],
+            "Comprendre Notre Monde": [
+                "Fondamentaux de la science du climat",
+                "Systèmes économiques mondiaux expliqués",
+                "Bases de l'anthropologie culturelle",
+                "Aperçu de la géopolitique moderne",
+                "Biodiversité et conservation"
+            ],
+            "Santé et Longévité": [
+                "Fondamentaux de la science de la nutrition",
+                "La science du vieillissement en bonne santé",
+                "Bases de la physiologie de l'exercice",
+                "Science du sommeil et optimisation",
+                "Techniques de gestion du stress"
+            ],
+            "Art et Créativité": [
+                "La psychologie de la créativité",
+                "Mouvements d'art moderne",
+                "Fondamentaux de la théorie musicale",
+                "Techniques d'écriture créative",
+                "Bases de l'art numérique et du design"
+            ]
+        },
+        'es': {
+            "Tecnologías del Futuro": [
+                "Fundamentos de la computación cuántica",
+                "Interfaces neurales y conexiones cerebro-computadora",
+                "Aplicaciones de biología sintética",
+                "Robótica avanzada y automatización",
+                "Desafíos de la colonización espacial"
+            ],
+            "Esenciales del Desarrollo Personal": [
+                "La ciencia de la formación de hábitos",
+                "Estrategias efectivas de gestión del tiempo",
+                "Desarrollo de la inteligencia emocional",
+                "Habilidades de pensamiento crítico",
+                "Estrategias para el aprendizaje permanente"
+            ],
+            "Entendiendo Nuestro Mundo": [
+                "Fundamentos de la ciencia climática",
+                "Sistemas económicos globales explicados",
+                "Fundamentos de antropología cultural",
+                "Panorama de la geopolítica moderna",
+                "Biodiversidad y conservación"
+            ]
+        }
+    }
+    
+    # Default to English if language not available
+    return playlists.get(language, playlists['en'])
