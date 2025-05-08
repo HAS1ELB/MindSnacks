@@ -193,15 +193,17 @@ def app():
             st.session_state.language = st.session_state.settings_state['language']
             st.session_state.theme = st.session_state.settings_state['theme']
             
-            # Save settings to user session
-            st.session_state.session.save_settings({
+            # Save settings to user session by iterating and calling set_preference
+            settings_to_save = {
                 'language': st.session_state.settings_state['language'],
                 'theme': st.session_state.settings_state['theme'],
                 'voice_index': st.session_state.settings_state['voice_index'],
                 'playback_speed': st.session_state.settings_state['playback_speed'],
-                'audio_quality': st.session_state.settings_state['audio_quality'],
-                'audio_format': st.session_state.settings_state['audio_format']
-            })
+                'audio_quality': st.session_state.settings_state['audio_quality'], # Note: 'audio_quality' is not in UserSession.preferences by default
+                'audio_format': st.session_state.settings_state['audio_format']   # Note: 'audio_format' is not in UserSession.preferences by default
+            }
+            for key, value in settings_to_save.items():
+                st.session_state.session.set_preference(key, value)
             
             # Clear cache if requested
             if clear_cache:

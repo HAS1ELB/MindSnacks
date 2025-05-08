@@ -1,0 +1,15 @@
+{
+  "event": "quiz_completed",
+  "timestamp": 1746668235.5669968,
+  "date": "2025-05-08T02:37:15.566996",
+  "properties": {
+    "topic": "Ancient Egyptian Civilization",
+    "score": 1,
+    "total": 5,
+    "percentage": 20,
+    "time_taken": 16.90751600265503,
+    "difficulty": "medium",
+    "language": "en",
+    "source_snippet_id": "556535b5-f3ae-4884-bf37-08411369b1ee"
+  }
+}

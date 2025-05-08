@@ -1,0 +1,52 @@
+{
+  "quiz_id": "c1d9182e-9363-4c9e-b648-6214d3650b34",
+  "topic": "Ancient Egyptian Civilization",
+  "user_id": null,
+  "score": 1,
+  "total": 5,
+  "percentage": 20,
+  "time_taken": 16.90751600265503,
+  "difficulty": "medium",
+  "language": "en",
+  "source_snippet_id": "556535b5-f3ae-4884-bf37-08411369b1ee",
+  "answers": {
+    "0": "B",
+    "1": "C",
+    "2": "A",
+    "3": "C",
+    "4": "C"
+  },
+  "feedback": {
+    "0": {
+      "selected": "B",
+      "correct": "B",
+      "is_correct": true,
+      "explanation": "Hieroglyphics were a sophisticated system of writing that not only conveyed everyday information but also told stories of the gods, pharaohs, and daily life, and were used to convey spiritual and mystical messages."
+    },
+    "1": {
+      "selected": "C",
+      "correct": "B",
+      "is_correct": false,
+      "explanation": "Anubis, the jackal-headed deity, was associated with mummification and the afterlife, and was believed to protect the deceased on their journey to the afterlife."
+    },
+    "2": {
+      "selected": "A",
+      "correct": "B",
+      "is_correct": false,
+      "explanation": "The heart was left in the body during mummification because it was believed to be the seat of the soul, and the Egyptians thought that the soul would need it to return to the body in the afterlife."
+    },
+    "3": {
+      "selected": "C",
+      "correct": "A",
+      "is_correct": false,
+      "explanation": "The Edwin Smith Papyrus is significant because it contains the oldest known surgical treatise, describing treatments for injuries, including trephining and laparotomy, demonstrating the advanced understanding of medicine and healthcare in Ancient Egyptian society."
+    },
+    "4": {
+      "selected": "C",
+      "correct": "D",
+      "is_correct": false,
+      "explanation": "Women in Ancient Egyptian society enjoyed a relatively high status, with some even rising to positions of power, like Hatshepsut, one of the few female pharaohs, demonstrating a level of social and cultural development that was remarkable for its time."
+    }
+  },
+  "timestamp": "2025-05-08T02:37:15.573077"
+}

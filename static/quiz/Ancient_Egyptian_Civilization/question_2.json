@@ -1,0 +1,13 @@
+{
+  "id": "c2b27412-ce0f-4862-b5c2-5997651ddf4f",
+  "question": "Which Ancient Egyptian god was associated with mummification and the afterlife?",
+  "options": {
+    "A": "Osiris",
+    "B": "Anubis",
+    "C": "Isis",
+    "D": "Horus"
+  },
+  "answer": "B",
+  "explanation": "Anubis, the jackal-headed deity, was associated with mummification and the afterlife, and was believed to protect the deceased on their journey to the afterlife.",
+  "difficulty": "medium"
+}

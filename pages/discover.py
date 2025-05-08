@@ -95,7 +95,7 @@ def display_categories():
             st.markdown(get_category_description(category))
             
             # Display topics with visual cards
-            display_topics_grid(topics, 3)
+            display_topics_grid(topics, 3, key_prefix=f"category_{category}")
 
 def display_trending_topics():
     """Display trending topics"""
@@ -212,7 +212,7 @@ def display_curated_playlists():
         st.subheader(f"Preview: {st.session_state.preview_playlist['name']}")
         
         # Display topics in a more visual way
-        display_topics_grid(st.session_state.preview_playlist['topics'], 4)
+        display_topics_grid(st.session_state.preview_playlist['topics'], 4, key_prefix=f"preview_{st.session_state.preview_playlist['name']}")
         
         # Add button to add all from preview
         if st.button(get_translation('add_all_from_preview', st.session_state.language)):
@@ -269,7 +269,7 @@ def display_interactive_explorer():
         st.subheader(get_translation('related_topics', st.session_state.language))
         
         # Display recommendations in an interactive grid
-        display_topics_grid(st.session_state.explorer_state['recommendations'], 3, explorer_mode=True)
+        display_topics_grid(st.session_state.explorer_state['recommendations'], 3, key_prefix="explorer", explorer_mode=True)
     
     # Display exploration history
     if len(st.session_state.explorer_state['history']) > 1:
@@ -383,7 +383,7 @@ def display_learning_paths():
                         animation_length=1,
                     )
 
-def display_topics_grid(topics, columns, explorer_mode=False):
+def display_topics_grid(topics, columns, key_prefix="topic_grid", explorer_mode=False):
     """Display topics in a grid layout with visual cards"""
     
     # Create columns
@@ -402,7 +402,7 @@ def display_topics_grid(topics, columns, explorer_mode=False):
             # Add button functionality
             if explorer_mode:
                 # In explorer mode, clicking explores related topics
-                if st.button(get_translation('explore_this', st.session_state.language), key=f"explore_topic_{i}"):
+                if st.button(get_translation('explore_this', st.session_state.language), key=f"{key_prefix}_explore_topic_{topic}_{i}"):
                     st.session_state.explorer_state['seed_topic'] = topic
                     st.session_state.explorer_state['history'].append(topic)
                     
@@ -411,12 +411,12 @@ def display_topics_grid(topics, columns, explorer_mode=False):
                         st.rerun()
                 
                 # Add to playlist button
-                if st.button(get_translation('add_to_playlist', st.session_state.language), key=f"add_explore_{i}"):
+                if st.button(get_translation('add_to_playlist', st.session_state.language), key=f"{key_prefix}_add_explore_{topic}_{i}"):
                     with st.spinner(get_translation('generating_snippet', st.session_state.language)):
                         add_topics_to_playlist([topic])
             else:
                 # Regular add button
-                if st.button(get_translation('add', st.session_state.language), key=f"add_topic_{topic}_{i}"):
+                if st.button(get_translation('add', st.session_state.language), key=f"{key_prefix}_add_topic_{topic}_{i}"):
                     with st.spinner(get_translation('generating_snippet', st.session_state.language)):
                         add_topics_to_playlist([topic])
 

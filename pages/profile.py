@@ -9,7 +9,7 @@ from streamlit_extras.colored_header import colored_header
 from streamlit_extras.switch_page_button import switch_page
 
 from utils.language_utils import get_translation
-from utils.data_utils import track_event, get_user_stats
+from utils.data_utils import track_event
 from utils.export_utils import export_stats
 from components.content_cards import render_achievement_card
 from utils.visualization_utils import (
@@ -30,7 +30,7 @@ def app():
         return
     
     # Check if user is authenticated
-    if not st.session_state.session.is_authenticated():
+    if not st.session_state.session.is_authenticated:
         st.warning("Please log in to view your profile.")
         if st.button("Log In"):
             # In a real app, this would redirect to login
@@ -84,7 +84,7 @@ def display_learning_stats(user):
         
         with st.spinner("Loading your stats..."):
             # Get user stats data (simulated here)
-            stats = get_user_stats(user.get('id', 'default'))
+            stats = st.session_state.session.analytics
             
             # Store stats data
             st.session_state.profile_state['stats_data'] = stats

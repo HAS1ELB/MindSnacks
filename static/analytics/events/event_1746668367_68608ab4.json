@@ -1,0 +1,14 @@
+{
+  "event": "settings_updated",
+  "timestamp": 1746668367.4291084,
+  "date": "2025-05-08T02:39:27.429108",
+  "properties": {
+    "language": "ar",
+    "theme": "dark",
+    "voice_index": 0,
+    "playback_speed": 1.0,
+    "audio_quality": "medium",
+    "audio_format": "mp3",
+    "cache_cleared": false
+  }
+}

@@ -12,10 +12,10 @@ import qrcode
 from io import BytesIO
 
 from utils.audio_utils import get_audio_duration, generate_waveform_data, convert_audio_format
-from utils.language_utils import get_translation, get_language_direction
+from utils.language_utils import get_translation
 from utils.data_utils import track_event
 from utils.llm_utils import generate_summary, extract_keywords
-from config import SHARE_URL_BASE, AUDIO_DIR, ENABLE_SOCIAL_SHARING, SHARING_PLATFORMS
+import config
 
 def app():
     """Library page showing user's learning content"""
@@ -323,7 +323,7 @@ def display_list_view(playlist):
                 )
                 
                 # Share button
-                if ENABLE_SOCIAL_SHARING:
+                if config.ENABLE_SOCIAL_SHARING:
                     if st.button("📤 Share", key=f"share_{snippet['id']}"):
                         show_share_options(snippet)
 
@@ -355,7 +355,8 @@ def display_compact_view(playlist):
     df = pd.DataFrame(data)
     
     # Use Streamlit's dataframe with row selection
-    selection = st.dataframe(
+    # The return value 'selected_df_rows' will be a list of dictionaries for the selected rows.
+    selected_df_rows = st.dataframe(
         df,
         column_config={
             "ID": None,  # Hide ID column
@@ -373,7 +374,9 @@ def display_compact_view(playlist):
             ),
         },
         hide_index=True,
-        use_container_width=True
+        use_container_width=True,
+        selection_mode="multi-row",  # Explicitly set selection mode
+        on_select="rerun"  # Ensure rerun on selection
     )
     
     # Actions for selected row
@@ -382,26 +385,30 @@ def display_compact_view(playlist):
     
     with col1:
         if st.button("▶️ Play Selected"):
-            if selection.selected_rows:
-                snippet_id = selection.selected_rows[0]["ID"]
+            if selected_df_rows and isinstance(selected_df_rows, list) and len(selected_df_rows) > 0:
+                snippet_id = selected_df_rows[0]["ID"] # Access the ID from the first selected row
                 snippet = next((s for s in playlist if s['id'] == snippet_id), None)
                 if snippet:
                     st.session_state.currently_playing = snippet
                     st.rerun()
+            else:
+                st.warning("Please select a row to play.")
     
     with col2:
         if st.button("👁️ View Selected"):
-            if selection.selected_rows:
-                snippet_id = selection.selected_rows[0]["ID"]
+            if selected_df_rows and isinstance(selected_df_rows, list) and len(selected_df_rows) > 0:
+                snippet_id = selected_df_rows[0]["ID"] # Access the ID from the first selected row
                 snippet = next((s for s in playlist if s['id'] == snippet_id), None)
                 if snippet:
                     st.session_state.detailed_view = snippet
                     st.rerun()
+            else:
+                st.warning("Please select a row to view.")
     
     with col3:
         if st.button("🗑️ Delete Selected"):
-            if selection.selected_rows:
-                snippet_id = selection.selected_rows[0]["ID"]
+            if selected_df_rows and isinstance(selected_df_rows, list) and len(selected_df_rows) > 0:
+                snippet_id = selected_df_rows[0]["ID"] # Access the ID from the first selected row
                 if st.session_state.session.remove_snippet(snippet_id):
                     # Update current playlist
                     st.session_state.current_playlist = [
@@ -569,11 +576,11 @@ def display_detailed_view(snippet):
             st.write("Waveform visualization not available.")
     
     with tab3:
-        if ENABLE_SOCIAL_SHARING:
+        if config.ENABLE_SOCIAL_SHARING:
             st.subheader("Share this content")
             
             # Generate sharing link
-            share_url = f"{SHARE_URL_BASE}/share?id={snippet['id']}"
+            share_url = f"{config.SHARE_URL_BASE}/share?id={snippet['id']}"
             st.text_input("Share link:", share_url)
             
             # Generate QR code
@@ -597,9 +604,9 @@ def display_detailed_view(snippet):
             # Social sharing buttons
             st.subheader("Share on social media")
             
-            cols = st.columns(len(SHARING_PLATFORMS))
+            cols = st.columns(len(config.SHARING_PLATFORMS))
             
-            for i, platform in enumerate(SHARING_PLATFORMS):
+            for i, platform in enumerate(config.SHARING_PLATFORMS):
                 with cols[i]:
                     if platform == "twitter":
                         platform_name = "Twitter"
@@ -642,11 +649,11 @@ def set_detailed_view(snippet):
 def show_share_options(snippet):
     """Show sharing options for a snippet"""
     
-    if not ENABLE_SOCIAL_SHARING:
+    if not config.ENABLE_SOCIAL_SHARING:
         return
     
     # Generate sharing link
-    share_url = f"{SHARE_URL_BASE}/share?id={snippet['id']}"
+    share_url = f"{config.SHARE_URL_BASE}/share?id={snippet['id']}"
     
     st.info(f"Share link: {share_url}")
     

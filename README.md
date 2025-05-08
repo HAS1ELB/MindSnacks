@@ -23,31 +23,30 @@ Mindsnacks is an advanced audio learning platform that generates customized educ
 ### Prerequisites
 
 - Python 3.10+
-- Node.js 18+
-- Access to Groq API (or other LLM provider)
+- Access to Groq API (or other LLM provider for content generation)
 
 ### Setup
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/mindsnacks-v2.git
-   cd mindsnacks-v2
-   ```
 
+   ```bash
+   git clone https://github.com/has1elb/MindSnacks.git
+   cd MindSnacks
+   ```
 2. Create a virtual environment:
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-
 3. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
-
-4. Create a `.env` file with your API keys (see `.env.example` for template)
-
+4. Create a `.env` file by copying `.env.example` (i.e., `cp .env.example .env` or manually create it) and fill in your API keys and other necessary configuration. The `.env.example` file provides a template for all required and optional variables.
 5. Run the application:
+
    ```bash
    streamlit run app.py
    ```

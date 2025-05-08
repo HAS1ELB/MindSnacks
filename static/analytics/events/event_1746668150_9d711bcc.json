@@ -1,0 +1,12 @@
+{
+  "event": "topics_added",
+  "timestamp": 1746668150.5444806,
+  "date": "2025-05-08T02:35:50.544480",
+  "properties": {
+    "topic_count": 1,
+    "topics": [
+      "Ancient Egyptian Civilization"
+    ],
+    "language": "en"
+  }
+}

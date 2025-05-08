@@ -16,8 +16,7 @@ from streamlit_extras.let_it_rain import rain
 # Import utilities
 from utils.language_utils import get_translation, get_languages_for_display
 from utils.data_utils import (
-    save_data, load_data, init_user_session, 
-    track_event, SessionManager, memory_cache
+    track_event, UserSession, memory_cache
 )
 from utils.auth_utils import user_manager
 from config import (
@@ -66,8 +65,7 @@ class MindsnacksApp:
             
         # User session
         if 'session' not in st.session_state:
-            st.session_state.session = SessionManager()
-            init_user_session()
+            st.session_state.session = UserSession()
         
         # Current page
         if 'current_page' not in st.session_state:
@@ -78,18 +76,32 @@ class MindsnacksApp:
             st.session_state.current_playlist = []
     
     def _apply_custom_styling(self):
-        """Apply custom CSS styling"""
-        # Determine theme based on session state
+        """Apply custom CSS styling and define theme-specific colors"""
         theme = st.session_state.theme
         
-        # Load theme CSS
         if theme == 'light':
+            st.session_state.theme_colors = {
+                "sidebar_icon": "#4a4a4a",      # Darker grey
+                "sidebar_text": "#333333",      # Dark grey
+                "sidebar_hover_bg": "#e6e6e6",  # Lighter grey for hover
+                "sidebar_selected_bg": "#1DB954",# Accent green for selected
+                "sidebar_selected_text": "#ffffff" # White text for selected
+            }
             theme_css_path = Path('static/css/light.css')
-        else:
+        else: # Dark theme
+            st.session_state.theme_colors = {
+                "sidebar_icon": "#b0b0b0",      # Softer white/light grey
+                "sidebar_text": "#d0d0d0",      # Light grey
+                "sidebar_hover_bg": "#33373d",  # Darker grey for hover
+                "sidebar_selected_bg": "#1DB954",# Accent green for selected
+                "sidebar_selected_text": "#ffffff" # White text for selected
+            }
             theme_css_path = Path('static/css/dark.css')
             
         # Default to dark theme if file doesn't exist
-        if not theme_css_path.exists():
+        if not theme_css_path.exists() and theme == 'dark': # Ensure this only runs for dark theme if dark.css is missing
+            # Create a basic dark.css if it's missing
+            os.makedirs(Path('static/css'), exist_ok=True) # Ensure directory exists
             with open('static/css/dark.css', 'w') as f:
                 f.write("""
                 /* Dark theme CSS */
@@ -158,8 +170,8 @@ class MindsnacksApp:
             st.markdown(f"<h1 style='text-align: center;'>{APP_EMOJI} {APP_TITLE}</h1>", unsafe_allow_html=True)
             
             # Display user info if logged in
-            if st.session_state.session.is_authenticated():
-                user = st.session_state.session.get_user()
+            if st.session_state.session.is_authenticated:
+                user = st.session_state.session.get_user() # Assuming get_user() is a method that returns a dict-like object
                 st.markdown(f"### {get_translation('welcome', st.session_state.language)}, {user.get('username', 'User')}")
             
             # Navigation menu
@@ -178,6 +190,24 @@ class MindsnacksApp:
                 menu_icon="cast",
                 default_index=0,
                 orientation="vertical",
+                styles={
+                    "container": {"padding": "0px !important", "background-color": "transparent"},
+                    "icon": {"color": st.session_state.theme_colors["sidebar_icon"], "font-size": "20px"},
+                    "nav-link": {
+                        "font-size": "16px",
+                        "text-align": "left",
+                        "margin": "3px 0px", # Reduced vertical margin slightly
+                        "padding": "10px 15px",
+                        "color": st.session_state.theme_colors["sidebar_text"],
+                        "--hover-color": st.session_state.theme_colors["sidebar_hover_bg"],
+                        "border-radius": "8px",
+                    },
+                    "nav-link-selected": {
+                        "background-color": st.session_state.theme_colors["sidebar_selected_bg"],
+                        "color": st.session_state.theme_colors["sidebar_selected_text"],
+                        "font-weight": "600", # Semi-bold
+                    },
+                }
             )
             
             # Handle navigation
@@ -267,21 +297,6 @@ class MindsnacksApp:
         - **Quiz** yourself to test your knowledge
         - **Track** your learning journey
         """)
-        
-        # Call to action buttons
-        col1, col2, col3 = st.columns([1, 1, 1])
-        
-        with col1:
-            if st.button(get_translation("discover_new_topics", st.session_state.language), key="discover_button"):
-                switch_page("discover")
-        
-        with col2:
-            if st.button(get_translation("create_title", st.session_state.language), key="create_button"):
-                switch_page("create")
-        
-        with col3:
-            if st.button(get_translation("quiz_title", st.session_state.language), key="quiz_button"):
-                switch_page("quiz")
         
         # Show sample topics
         st.divider()

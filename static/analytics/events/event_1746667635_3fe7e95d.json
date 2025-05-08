@@ -1,0 +1,11 @@
+{
+  "event": "content_created",
+  "timestamp": 1746667635.8865588,
+  "date": "2025-05-08T02:27:15.886558",
+  "properties": {
+    "topic": "Machine learning",
+    "length": "standard",
+    "language": "ar",
+    "success": true
+  }
+}

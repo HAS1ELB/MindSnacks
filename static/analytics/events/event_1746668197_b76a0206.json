@@ -1,0 +1,10 @@
+{
+  "event": "quiz_started_from_snippet",
+  "timestamp": 1746668197.6451302,
+  "date": "2025-05-08T02:36:37.645130",
+  "properties": {
+    "topic": "Ancient Egyptian Civilization",
+    "language": "en",
+    "question_count": 5
+  }
+}
